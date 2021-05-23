@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Regression Suite" verbose="1" configfailurepolicy="continue" parallel="classes" thread-count="5">
+    <test name="Regression">
+        <packages>
+            <package name="com.customertimes.test.login.*" >
+            <exclude name="com.customertimes.test.login.mfa.*"/>
+            </package>
+        </packages>
+    </test>
+</suite>
