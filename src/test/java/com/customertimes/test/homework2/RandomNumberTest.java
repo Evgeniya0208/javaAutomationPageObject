@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import java.util.Random;
 
-public class RandomNumber {
+public class RandomNumberTest {
     @Test
     public void checkRandomNumber() {
         Random rand = new Random();

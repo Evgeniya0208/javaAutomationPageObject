@@ -2,7 +2,6 @@ package com.customertimes.test.homework3;
 
 public class LoginPage {
     private String emailFieldCss = "input[name=email]";
-    private String emailPasswordErrorCss = ".error";
     private String passwordFieldCss = "input[name=password]";
     private String showPasswordButtonCss = "[aria-label = 'Eye']";
     private String logInButtonCss = "[type = submit]";

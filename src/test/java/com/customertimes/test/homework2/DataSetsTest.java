@@ -2,7 +2,7 @@ package com.customertimes.test.homework2;
 
 import org.testng.annotations.Test;
 
-public class TestWithDataSets {
+public class DataSetsTest {
 
     @Test (dataProvider = "credentials", dataProviderClass = CredentialsData.class)
     public void checkCredentials(String email, String password) {

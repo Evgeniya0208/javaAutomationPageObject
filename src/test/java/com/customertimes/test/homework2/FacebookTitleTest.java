@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class FacebookTitle extends BaseTest {
+public class FacebookTitleTest extends BaseTest {
 
     @Test
     public void checkFacebookTitle() {
