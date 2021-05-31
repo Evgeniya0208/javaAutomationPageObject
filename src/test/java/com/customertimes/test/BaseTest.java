@@ -11,7 +11,7 @@ public class BaseTest {
     protected WebDriver driver;
 
     @BeforeSuite
-    public void setup() {
+    public void setup() throws InterruptedException{
         driver = WebdriverRunner.getWebDriver();
         System.out.println("This is before suite");
     }
@@ -23,7 +23,7 @@ public class BaseTest {
     }
 
     @BeforeClass
-    public void beforeClassInTheBaseTest() {
+    public void beforeClassInTheBaseTest()  {
         System.out.println("This is before class in the BaseTest");
     }
 }

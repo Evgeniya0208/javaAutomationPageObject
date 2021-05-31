@@ -11,46 +11,47 @@ import org.openqa.selenium.safari.SafariDriver;
 
 public class WebdriverRunner {
 
-    private static WebDriver driver;
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     private WebdriverRunner() {
     }
 
     public static WebDriver getWebDriver() {
-        if (driver == null) {
+        if (driver.get() == null) {
             switch (TestConfig.CONFIG.browser()) {
                 case "firefox": {
                     WebDriverManager.firefoxdriver().setup();
-                    driver = new FirefoxDriver();
+                    driver.set(new FirefoxDriver());
                     break;
                 }
                 case "opera": {
                     WebDriverManager.operadriver().setup();
-                    driver = new OperaDriver();
+                    driver.set(new OperaDriver());
                     break;
                     }
                 case "edge": {
                     WebDriverManager.edgedriver().setup();
-                    driver = new EdgeDriver();
+                    driver.set(new EdgeDriver());
                     break;
                 }
                 case  "safari": {
-                    driver = new SafariDriver();
+                    driver.set(new SafariDriver());
                     break;
                 }
                 default: {
                     WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver();
+                    driver.set(new ChromeDriver());
                 }
             }
-            driver.manage().window().maximize();
+            driver.get().manage().window().maximize();
         }
-        return driver;
+        return driver.get();
     }
 
     public static void closeWebDriver() {
-        if (driver != null) {
-            driver.close();
+        if (driver.get() != null) {
+            driver.get().close();
+            driver.remove();
         }
     }
 }
