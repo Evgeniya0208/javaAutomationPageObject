@@ -45,7 +45,7 @@ public class ProductToBasketTest extends BaseTest {
             getWebDriver().findElement(By.xpath("//*[@aria-label = 'Show the shopping cart']")).click();
             wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(By.xpath("// mat-table"))));
             WebElement userBasketSize = getWebDriver().findElement(By.xpath("// mat-table"));
-            while (userBasketSize.getAttribute("textContent") != "") {
+            while (!userBasketSize.getAttribute("textContent").equals("")) {
                 getWebDriver().findElement(By.xpath("//*[@data-icon='trash-alt']")).click();
                 try {
                     Thread.sleep(3_000);
@@ -61,7 +61,7 @@ public class ProductToBasketTest extends BaseTest {
     @AfterClass
     public void cleanData() {
         WebElement userBasketSize = getWebDriver().findElement(By.xpath("// mat-table"));
-        while (userBasketSize.getAttribute("textContent") != "") {
+        while (!userBasketSize.getAttribute("textContent").equals("")) {
             getWebDriver().findElement(By.xpath("//*[@data-icon='trash-alt']")).click();
             try {
                 Thread.sleep(3_000);
