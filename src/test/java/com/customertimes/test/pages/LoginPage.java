@@ -1,4 +1,4 @@
-package com.customertimes.test.homework3;
+package com.customertimes.test.pages;
 
 public class LoginPage {
     private String emailFieldCss = "input[name=email]";

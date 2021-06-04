@@ -1,4 +1,4 @@
-package com.customertimes.test.homework3;
+package com.customertimes.test.pages;
 
 public class RegistrationPage {
 
@@ -10,6 +10,7 @@ public class RegistrationPage {
     private String answerFieldCss = "[aria-owns = securityAnswerControl]";
     private String registerButtonCss = "[type = submit]";
     private String alreadyCustomerCss = "#alreadyACustomerLink a[href = '#/login']";
+    private String dismissWelcomeButtonCss = "[aria-label = 'Close Welcome Banner']";
 
 
     private String emailFieldXpath = "//*[@aria-label = 'Email address field']";

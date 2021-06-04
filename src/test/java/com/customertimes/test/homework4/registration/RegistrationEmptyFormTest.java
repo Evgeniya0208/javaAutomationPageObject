@@ -1,9 +1,11 @@
-package com.customertimes.test.homework4;
+package com.customertimes.test.homework4.registration;
 import com.customertimes.framework.driver.WebdriverRunner;
 import com.customertimes.test.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -14,6 +16,7 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class RegistrationEmptyFormTest extends BaseTest {
 
+    WebDriverWait wait;
     private String emptyEmailMessage = "Please provide an email address.";
     private String emptyPasswordMessage = "Please provide a password.";
     private String emptyRepeatPasswordMessage = "Please repeat your password.";
@@ -23,8 +26,9 @@ public class RegistrationEmptyFormTest extends BaseTest {
 
     @BeforeClass
     public void setup() throws InterruptedException {
+        wait = new WebDriverWait(getWebDriver(), 5);
         getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/register");
-        Thread.sleep(1_000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
         WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
         dismissButton.click();
     }
@@ -35,7 +39,7 @@ public class RegistrationEmptyFormTest extends BaseTest {
     }
 
     @Test
-    public void CheckEmptyRegFormValidation()
+    public void checkEmptyRegFormValidation()
     {
         WebElement emailField = getWebDriver().findElement(By.cssSelector("[aria-label = 'Email address field']"));
         emailField.click();
@@ -54,18 +58,11 @@ public class RegistrationEmptyFormTest extends BaseTest {
 
         answerField.sendKeys(Keys.TAB);
 
-        try {
-            Thread.sleep(1_000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        WebElement actualEmailErrorMessage = getWebDriver().findElement(By.xpath("//*[@aria-label = 'Email address field']/../../../div/following-sibling::div/div/mat-error"));
-        WebElement actualPasswordErrorMessage = getWebDriver().findElement(By.xpath("//*[@aria-label = 'Field for the password']/../../following-sibling::div/div/mat-error"));
-        WebElement actualRepeatPasswordErrorMessage = getWebDriver().findElement(By.xpath("//*[@aria-label = 'Field to confirm the password']/../../following-sibling::div/div/mat-error"));
-        WebElement actualSecurityQuestionErrorMessage = getWebDriver().findElement(By.xpath("//*[@name = 'securityQuestion']/../../following-sibling::div/div/mat-error"));
-        WebElement actualAnswerErrorMessage = getWebDriver().findElement(By.xpath("//*[@aria-owns = 'securityAnswerControl']/../../../following-sibling::div/div/mat-error"));
-
+        WebElement actualEmailErrorMessage = getWebDriver().findElement(By.xpath("//*[@aria-label = 'Email address field']/ancestor::mat-form-field//mat-error"));
+        WebElement actualPasswordErrorMessage = getWebDriver().findElement(By.xpath("//*[@aria-label = 'Field for the password']/ancestor::mat-form-field//mat-error"));
+        WebElement actualRepeatPasswordErrorMessage = getWebDriver().findElement(By.xpath("//*[@aria-label = 'Field to confirm the password']/ancestor::mat-form-field//mat-error"));
+        WebElement actualSecurityQuestionErrorMessage = getWebDriver().findElement(By.xpath("//*[@name = 'securityQuestion']/ancestor::mat-form-field//mat-error"));
+        WebElement actualAnswerErrorMessage = getWebDriver().findElement(By.xpath("//*[@aria-owns = 'securityAnswerControl']/ancestor::mat-form-field//mat-error"));
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualEmailErrorMessage.getText(), emptyEmailMessage, "Error message is not expected");

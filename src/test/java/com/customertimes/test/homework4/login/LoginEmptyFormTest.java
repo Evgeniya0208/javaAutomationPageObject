@@ -1,9 +1,13 @@
-package com.customertimes.test.homework4;
+package com.customertimes.test.homework4.login;
 
 import com.customertimes.framework.driver.WebdriverRunner;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -14,13 +18,15 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class LoginEmptyFormTest {
 
+    WebDriverWait wait;
     private String emptyEmailFieldMessage = "Please provide an email address.";
     private String emptyPasswordFieldMessage = "Please provide a password.";
 
     @BeforeClass
     public void setup() throws InterruptedException {
+        wait = new WebDriverWait(getWebDriver(), 5);
         getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/login");
-        Thread.sleep(1_000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
         WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
         dismissButton.click();
     }
@@ -31,7 +37,7 @@ public class LoginEmptyFormTest {
     }
 
     @Test
-    public void CheckLoginEmptyForm() {
+    public void checkLoginEmptyForm() {
         WebElement emailField = getWebDriver().findElement(By.cssSelector("input[name=email]"));
         emailField.click();
 
@@ -39,14 +45,11 @@ public class LoginEmptyFormTest {
         passwordField.click();
         passwordField.sendKeys(Keys.TAB);
 
-        try {
-            Thread.sleep(2_000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
-        String actualEmailErrorMessage = getWebDriver().findElement(By.xpath("//input[@name = 'email']/../../following-sibling::div/div/mat-error")).getText();
-        String actualPasswordErrorMessage = getWebDriver().findElement(By.xpath("//input[@name = 'password']/../../following-sibling::div/div/mat-error")).getText();
+        WebElement emailError = wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(By.xpath("//input[@name = 'email']/ancestor::mat-form-field//mat-error"))));
+        WebElement passwordError = wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(By.xpath("//input[@name = 'password']/ancestor::mat-form-field//mat-error"))));
+        String actualEmailErrorMessage = emailError.getText();
+        String actualPasswordErrorMessage = passwordError.getText();
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualEmailErrorMessage, emptyEmailFieldMessage, "Error message is not expected");

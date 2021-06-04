@@ -1,9 +1,10 @@
-package com.customertimes.test.homework4;
+package com.customertimes.test.homework4.login;
 
 import com.customertimes.framework.driver.WebdriverRunner;
-import com.customertimes.test.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -11,15 +12,18 @@ import org.testng.annotations.Test;
 
 import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
-public class LoginSuccessTest extends BaseTest {
+public class LoginInvalidPasswordTest {
+    WebDriverWait wait;
+    String loginRegisteredUser = "evgeniya1@gmail.com";
+    String passwordRegisteredUser = "1234567";
 
-    String loginRegisteredUser = "evgeniya1@gmail.com";;
-    String passwordRegisteredUser = "123456";
+    private String invalidEmailPasswordMessage = "Invalid email or password.";
 
     @BeforeClass
     public void setup() throws InterruptedException {
+        wait = new WebDriverWait(getWebDriver(), 5);
         getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/login");
-        Thread.sleep(1_000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
         WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
         dismissButton.click();
     }
@@ -30,7 +34,7 @@ public class LoginSuccessTest extends BaseTest {
     }
 
     @Test
-    public void CheckLoginSuccess() {
+    public void checkLoginInvalidPassword() {
         WebElement emailField = getWebDriver().findElement(By.cssSelector("input[name=email]"));
         emailField.sendKeys(loginRegisteredUser);
 
@@ -40,16 +44,10 @@ public class LoginSuccessTest extends BaseTest {
         WebElement logInButton = getWebDriver().findElement(By.cssSelector("[type = submit]"));
         logInButton.click();
 
-        getWebDriver().findElement(By.id("navbarAccount")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='error ng-star-inserted']")));
 
-        try {
-            Thread.sleep(1_000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        String actualEmailPasswordError = getWebDriver().findElement(By.xpath("//*[@class='error ng-star-inserted']")).getText();
 
-        String actualUserName = getWebDriver().findElement(By.cssSelector("button[aria-label='Go to user profile'] span")).getText();
-
-        Assert.assertEquals(actualUserName, loginRegisteredUser, "User does not match");
+        Assert.assertEquals(invalidEmailPasswordMessage, actualEmailPasswordError, "Error is not expected");
     }
 }

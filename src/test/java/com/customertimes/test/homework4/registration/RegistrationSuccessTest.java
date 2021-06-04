@@ -1,9 +1,12 @@
-package com.customertimes.test.homework4;
+package com.customertimes.test.homework4.registration;
 
 import com.customertimes.framework.driver.WebdriverRunner;
 import com.customertimes.test.BaseTest;
+import com.customertimes.test.pages.RegistrationPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -11,26 +14,31 @@ import org.testng.annotations.Test;
 
 import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
-public class RegisterExistingEmailTest extends BaseTest {
-    private String userEmail = "evgeniya1@gmail.com";
+public class RegistrationSuccessTest extends BaseTest {
+    WebDriverWait wait;
+    private String userEmail;
     private String password = "123456";
     private String answer = "Cat";
-    private String expectedErrorMessage = "Email must be unique";
+    private String expectedSuccessfulMessage = "Registration completed successfully. You can now log in.";
 
     @BeforeClass
     public void setup() throws InterruptedException {
+        wait = new WebDriverWait(getWebDriver(), 5);
         getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/register");
-        Thread.sleep(1_000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
         WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
         dismissButton.click();
+        userEmail = "evgeniya" + System.currentTimeMillis() + "@gmail.com";
     }
 
     @AfterClass
     public void tearDown() {
         WebdriverRunner.closeWebDriver();
     }
+
     @Test
-    public void CheckRegistrationWithExistingUser() {
+    public void checkUserCanRegister()
+    {
         WebElement emailField = getWebDriver().findElement(By.cssSelector("[aria-label = 'Email address field']"));
         emailField.sendKeys(userEmail);
 
@@ -53,13 +61,8 @@ public class RegisterExistingEmailTest extends BaseTest {
         WebElement registerButton = getWebDriver().findElement(By.cssSelector("[type = submit]"));
         registerButton.click();
 
-        try {
-            Thread.sleep(1_000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        WebElement actualErrorMessage = getWebDriver().findElement(By.xpath("//*[@aria-label = 'Email address field']/../../../../../../*[@class='error']"));
-        Assert.assertEquals(actualErrorMessage.getText(), expectedErrorMessage, "Error message is not expected");
+        wait.until(ExpectedConditions.textToBe(By.xpath("//*[@class = 'mat-simple-snackbar ng-star-inserted']/span"), expectedSuccessfulMessage));
+        WebElement registrationSuccessMessage = getWebDriver().findElement(By.xpath("//*[@class = 'mat-simple-snackbar ng-star-inserted']/span"));
+        Assert.assertEquals(registrationSuccessMessage.getText(), expectedSuccessfulMessage, "Message is not expected");
     }
 }
