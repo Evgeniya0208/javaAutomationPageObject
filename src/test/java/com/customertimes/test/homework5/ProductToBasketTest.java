@@ -41,9 +41,13 @@ public class ProductToBasketTest extends BaseTest {
 
         WebElement productCounter = getWebDriver().findElement(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span"));
 
-        if (!productCounter.getAttribute("innerText").equals("0")) {
+        if (productCounter.getAttribute("innerText") != "0") {
             getWebDriver().findElement(By.xpath("//*[@aria-label = 'Show the shopping cart']")).click();
-            wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(By.xpath("// mat-table"))));
+            try {
+                Thread.sleep(3_000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             WebElement userBasketSize = getWebDriver().findElement(By.xpath("// mat-table"));
             while (!userBasketSize.getAttribute("textContent").equals("")) {
                 getWebDriver().findElement(By.xpath("//*[@data-icon='trash-alt']")).click();
@@ -60,6 +64,7 @@ public class ProductToBasketTest extends BaseTest {
 
     @AfterClass
     public void cleanData() {
+        wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(By.xpath("// mat-table"))));
         WebElement userBasketSize = getWebDriver().findElement(By.xpath("// mat-table"));
         while (!userBasketSize.getAttribute("textContent").equals("")) {
             getWebDriver().findElement(By.xpath("//*[@data-icon='trash-alt']")).click();
