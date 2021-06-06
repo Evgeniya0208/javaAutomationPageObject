@@ -1,7 +1,12 @@
 package com.customertimes.test.product;
 
 import com.customertimes.framework.driver.WebdriverRunner;
+import com.customertimes.model.Customer;
+import com.customertimes.model.Product;
 import com.customertimes.test.BaseTest;
+import com.customertimes.test.pages.BasketPage;
+import com.customertimes.test.pages.LoginPage;
+import com.customertimes.test.pages.MainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -16,29 +21,29 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class SoldOutProductTest extends BaseTest {
     WebDriverWait wait;
-    private String loginRegisteredUser = "evgeniya1@gmail.com";
-    private String passwordRegisteredUser = "123456";
+    LoginPage loginPage;
+    Customer customer;
+    MainPage mainPage;
+    JavascriptExecutor js;
     private String expectedErrorMessage = "We are out of stock! Sorry for the inconvenience.";
 
     @BeforeClass
     public void setup() throws InterruptedException {
         wait = new WebDriverWait(getWebDriver(), 10);
         getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/login");
-        Thread.sleep(1_000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
         WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
         dismissButton.click();
-        WebElement emailField = getWebDriver().findElement(By.cssSelector("input[name=email]"));
-        emailField.sendKeys(loginRegisteredUser);
 
-        WebElement passwordField = getWebDriver().findElement(By.cssSelector("input[name=password]"));
-        passwordField.sendKeys(passwordRegisteredUser);
+        customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
+        loginPage = new LoginPage(driver);
+        loginPage.loginAs(customer);
 
-        WebElement logInButton = getWebDriver().findElement(By.cssSelector("[type = submit]"));
-        logInButton.click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")));
-
         WebElement dismissCookie = getWebDriver().findElement(By.xpath("//*[@aria-label='dismiss cookie message']"));
         dismissCookie.click();
+        mainPage = new MainPage(driver);
+        js = (JavascriptExecutor)WebdriverRunner.getWebDriver();
     }
 
     @AfterClass
@@ -48,22 +53,17 @@ public class SoldOutProductTest extends BaseTest {
 
     @Test
     public void checkAddingSoldOutProductToBasket() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//*[@class = 'mat-grid-tile ng-star-inserted'])[1]//*[@class='mat-button-wrapper']")));
-        JavascriptExecutor js = (JavascriptExecutor)WebdriverRunner.getWebDriver();
-        js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+        mainPage.goPageDown();
 
-        WebElement nextPage = getWebDriver().findElement(By.xpath("//mat-paginator/descendant::button[2]//*[@class='mat-paginator-icon']"));
-        nextPage.click();
+        mainPage.goNextPage();
 
-        WebElement soldOutProduct = getWebDriver().findElement(By.xpath("//mat-card/div/span[text()='Sold Out']"));
-        js.executeScript("arguments[0].scrollIntoView(true)", soldOutProduct);
+        mainPage.goSoldOutProduct();
 
-        WebElement addToBasketAnySoldOutProduct = getWebDriver().findElement(By.xpath("//mat-card/div/span[text()='Sold Out']/ancestor::mat-card//button"));
-        addToBasketAnySoldOutProduct.click();
+        mainPage.addSoldOutToBasket();
 
-        wait.until(ExpectedConditions.textToBe(By.xpath("//simple-snack-bar/span"), expectedErrorMessage));
-
-        WebElement errorMessage = getWebDriver().findElement(By.xpath("//simple-snack-bar/span"));
-        Assert.assertEquals(errorMessage.getText(), expectedErrorMessage, "Message is not expected");
+        Assert.assertEquals(mainPage.getSoldOutErrorMessage(), expectedErrorMessage, "Message is not expected");
     }
+
+
+
 }
