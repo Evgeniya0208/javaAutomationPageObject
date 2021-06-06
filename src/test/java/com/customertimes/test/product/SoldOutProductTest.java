@@ -1,10 +1,9 @@
-package com.customertimes.test.homework5;
+package com.customertimes.test.product;
 
 import com.customertimes.framework.driver.WebdriverRunner;
 import com.customertimes.test.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,7 +16,7 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class SoldOutProductTest extends BaseTest {
     WebDriverWait wait;
-    private String loginRegisteredUser = "evgeniya1@gmail.com";;
+    private String loginRegisteredUser = "evgeniya1@gmail.com";
     private String passwordRegisteredUser = "123456";
     private String expectedErrorMessage = "We are out of stock! Sorry for the inconvenience.";
 

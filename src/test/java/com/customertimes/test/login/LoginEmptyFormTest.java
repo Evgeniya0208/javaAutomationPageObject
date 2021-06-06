@@ -1,6 +1,7 @@
-package com.customertimes.test.homework4.login;
+package com.customertimes.test.login;
 
 import com.customertimes.framework.driver.WebdriverRunner;
+import com.customertimes.test.pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,7 @@ public class LoginEmptyFormTest {
     WebDriverWait wait;
     private String emptyEmailFieldMessage = "Please provide an email address.";
     private String emptyPasswordFieldMessage = "Please provide a password.";
+    LoginPage loginPage;
 
     @BeforeClass
     public void setup() throws InterruptedException {
@@ -29,6 +31,7 @@ public class LoginEmptyFormTest {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
         WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
         dismissButton.click();
+        loginPage = new LoginPage(getWebDriver());
     }
 
     @AfterClass
@@ -38,18 +41,13 @@ public class LoginEmptyFormTest {
 
     @Test
     public void checkLoginEmptyForm() {
-        WebElement emailField = getWebDriver().findElement(By.cssSelector("input[name=email]"));
-        emailField.click();
+        loginPage.leftEmailFieldEmpty();
 
-        WebElement passwordField = getWebDriver().findElement(By.cssSelector("input[name=password]"));
-        passwordField.click();
-        passwordField.sendKeys(Keys.TAB);
+        loginPage.leftPasswordFieldEmpty();
 
+        String actualEmailErrorMessage = loginPage.getActualEmptyEmailErrorMessage();
 
-        WebElement emailError = wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(By.xpath("//input[@name = 'email']/ancestor::mat-form-field//mat-error"))));
-        WebElement passwordError = wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(By.xpath("//input[@name = 'password']/ancestor::mat-form-field//mat-error"))));
-        String actualEmailErrorMessage = emailError.getText();
-        String actualPasswordErrorMessage = passwordError.getText();
+        String actualPasswordErrorMessage = loginPage.getActualEmptyPasswordErrorMessage();
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualEmailErrorMessage, emptyEmailFieldMessage, "Error message is not expected");

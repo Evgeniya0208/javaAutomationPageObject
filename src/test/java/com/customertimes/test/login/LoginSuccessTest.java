@@ -1,7 +1,9 @@
-package com.customertimes.test.homework4.login;
+package com.customertimes.test.login;
 
 import com.customertimes.framework.driver.WebdriverRunner;
+import com.customertimes.model.Customer;
 import com.customertimes.test.BaseTest;
+import com.customertimes.test.pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,8 +17,8 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class LoginSuccessTest extends BaseTest {
     WebDriverWait wait;
-    String loginRegisteredUser = "evgeniya1@gmail.com";;
-    String passwordRegisteredUser = "123456";
+    Customer customer;
+    LoginPage loginPage;
 
     @BeforeClass
     public void setup() throws InterruptedException {
@@ -25,6 +27,9 @@ public class LoginSuccessTest extends BaseTest {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
         WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
         dismissButton.click();
+
+        customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
+        loginPage = new LoginPage(driver);
     }
 
     @AfterClass
@@ -34,23 +39,14 @@ public class LoginSuccessTest extends BaseTest {
 
     @Test
     public void checkLoginSuccess() {
-        WebElement emailField = getWebDriver().findElement(By.cssSelector("input[name=email]"));
-        emailField.sendKeys(loginRegisteredUser);
 
-        WebElement passwordField = getWebDriver().findElement(By.cssSelector("input[name=password]"));
-        passwordField.sendKeys(passwordRegisteredUser);
+        loginPage.loginAs(customer);
 
-        WebElement logInButton = getWebDriver().findElement(By.cssSelector("[type = submit]"));
-        logInButton.click();
+        loginPage.clickOnAccountButton();
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("navbarAccount")));
-        WebElement navbarAccount = getWebDriver().findElement(By.id("navbarAccount"));
-        navbarAccount.click();
+        String actualUserName = loginPage.getActualUserName(customer.getEmail());
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[aria-label='Go to user profile'] span")));
-
-        WebElement userAccount = getWebDriver().findElement(By.cssSelector("button[aria-label='Go to user profile'] span"));
-        String actualUserName = userAccount.getText();
-        Assert.assertEquals(actualUserName, loginRegisteredUser, "User does not match");
+        Assert.assertEquals(actualUserName, customer.getEmail(), "User does not match");
     }
+
 }

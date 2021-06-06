@@ -1,7 +1,9 @@
-package com.customertimes.test.homework4.login;
+package com.customertimes.test.login;
 
 import com.customertimes.framework.driver.WebdriverRunner;
+import com.customertimes.model.Customer;
 import com.customertimes.test.BaseTest;
+import com.customertimes.test.pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,9 +17,9 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class LoginInvalidEmailTest extends BaseTest {
     WebDriverWait wait;
-    String loginRegisteredUser = "evgeniya123@gmail.com";
-    String passwordRegisteredUser = "123456";
     private String invalidEmailPasswordMessage = "Invalid email or password.";
+    Customer customer;
+    LoginPage loginPage;
 
     @BeforeClass
     public void setup() throws InterruptedException {
@@ -26,6 +28,8 @@ public class LoginInvalidEmailTest extends BaseTest {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
         WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
         dismissButton.click();
+        customer = Customer.newBuilder().withName("evgeniya123@gmail.com").withPassword("123456").build();
+        loginPage = new LoginPage(driver);
     }
 
     @AfterClass
@@ -35,18 +39,10 @@ public class LoginInvalidEmailTest extends BaseTest {
 
     @Test
     public void checkLoginInvalidEmail() {
-        WebElement emailField = getWebDriver().findElement(By.cssSelector("input[name=email]"));
-        emailField.sendKeys(loginRegisteredUser);
+        loginPage.loginAs(customer);
 
-        WebElement passwordField = getWebDriver().findElement(By.cssSelector("input[name=password]"));
-        passwordField.sendKeys(passwordRegisteredUser);
+        String actualEmailPasswordError = loginPage.getActualInvalidEmailPasswordError();
 
-        WebElement logInButton = getWebDriver().findElement(By.cssSelector("[type = submit]"));
-        logInButton.click();
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='error ng-star-inserted']")));
-        WebElement error = getWebDriver().findElement(By.xpath("//*[@class='error ng-star-inserted']"));
-        String actualEmailPasswordError = error.getText();
         Assert.assertEquals(invalidEmailPasswordMessage, actualEmailPasswordError, "Error is not expected");
     }
 }

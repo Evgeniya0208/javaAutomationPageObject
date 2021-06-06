@@ -1,6 +1,8 @@
-package com.customertimes.test.homework4.login;
+package com.customertimes.test.login;
 
 import com.customertimes.framework.driver.WebdriverRunner;
+import com.customertimes.model.Customer;
+import com.customertimes.test.pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,8 +16,8 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class LoginInvalidPasswordTest {
     WebDriverWait wait;
-    String loginRegisteredUser = "evgeniya1@gmail.com";
-    String passwordRegisteredUser = "1234567";
+    Customer customer;
+    LoginPage loginPage;
 
     private String invalidEmailPasswordMessage = "Invalid email or password.";
 
@@ -26,6 +28,8 @@ public class LoginInvalidPasswordTest {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
         WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
         dismissButton.click();
+        customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("1234567").build();
+        loginPage = new LoginPage(getWebDriver());
     }
 
     @AfterClass
@@ -35,18 +39,9 @@ public class LoginInvalidPasswordTest {
 
     @Test
     public void checkLoginInvalidPassword() {
-        WebElement emailField = getWebDriver().findElement(By.cssSelector("input[name=email]"));
-        emailField.sendKeys(loginRegisteredUser);
+        loginPage.loginAs(customer);
 
-        WebElement passwordField = getWebDriver().findElement(By.cssSelector("input[name=password]"));
-        passwordField.sendKeys(passwordRegisteredUser);
-
-        WebElement logInButton = getWebDriver().findElement(By.cssSelector("[type = submit]"));
-        logInButton.click();
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='error ng-star-inserted']")));
-
-        String actualEmailPasswordError = getWebDriver().findElement(By.xpath("//*[@class='error ng-star-inserted']")).getText();
+        String actualEmailPasswordError = loginPage.getActualInvalidEmailPasswordError();
 
         Assert.assertEquals(invalidEmailPasswordMessage, actualEmailPasswordError, "Error is not expected");
     }
