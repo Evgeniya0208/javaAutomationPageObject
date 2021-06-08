@@ -14,6 +14,9 @@ public class BasketPage extends AbstractPage{
     private WebDriverWait wait;
     private String registrationPage = "http://beeb0b73705f.sn.mynetname.net:3000/#/basket";
     private By basketTable = By.xpath("// mat-table");
+    private By basketTableRow = By.xpath(".//mat-row");
+    private By trashButton = By.xpath("//*[@data-icon='trash-alt']");
+    private By mainPageButton = By.xpath("//*[@alt='OWASP Juice Shop']");
 
 
     public BasketPage(WebDriver driver) {
@@ -33,17 +36,17 @@ public class BasketPage extends AbstractPage{
     }
 
     public void getEmptyBasket() {
-        List<WebElement> basketProducts = getWebDriver().findElements(By.xpath(".//mat-row"));
+        List<WebElement> basketProducts = getWebDriver().findElements(basketTableRow);
 
         for (WebElement basketProduct : basketProducts) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//mat-row")));
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@data-icon='trash-alt']")));
-            getWebDriver().findElement(By.xpath("//*[@data-icon='trash-alt']")).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(basketTableRow));
+            wait.until(ExpectedConditions.elementToBeClickable(trashButton));
+            getWebDriver().findElement(trashButton).click();
         }
     }
 
     public void returnToMainPage() {
-        WebElement goToMainPage = getWebDriver().findElement(By.xpath("//*[@alt='OWASP Juice Shop']"));
+        WebElement goToMainPage = getWebDriver().findElement(mainPageButton);
         goToMainPage.click();
     }
 }
