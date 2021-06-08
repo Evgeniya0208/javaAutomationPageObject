@@ -25,8 +25,8 @@ public class LoginPage extends AbstractPage {
     private String expectedUserName = "evgeniya1@gmail.com";
 
     public LoginPage(WebDriver driver) {
-        super(getWebDriver());
-        wait = new WebDriverWait(getWebDriver(), TIME_OUT);
+        super(driver);
+        wait = new WebDriverWait(driver, TIME_OUT);
     }
 
     @Override

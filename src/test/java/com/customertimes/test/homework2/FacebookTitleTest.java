@@ -3,11 +3,17 @@ package com.customertimes.test.homework2;
 import com.customertimes.framework.driver.WebdriverRunner;
 import com.customertimes.test.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class FacebookTitleTest extends BaseTest {
+
+    @AfterClass
+    public void tearDown() {
+        WebdriverRunner.closeWebDriver();
+    }
 
     @Test
     public void checkFacebookTitle() {

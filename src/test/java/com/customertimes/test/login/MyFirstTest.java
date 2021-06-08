@@ -7,10 +7,10 @@ import org.testng.asserts.SoftAssert;
 
 public class MyFirstTest extends BaseTest {
 
+
     @AfterClass
-    public void afterClass() {
-        System.out.println("This is after class");
-        driver.close();
+    public void tearDown() {
+        WebdriverRunner.closeWebDriver();
     }
 
 
@@ -25,7 +25,7 @@ public class MyFirstTest extends BaseTest {
         WebdriverRunner.getWebDriver().get("https://www.google.com/");
 
         try {
-            Thread.sleep(15_000);
+            Thread.sleep(5_000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

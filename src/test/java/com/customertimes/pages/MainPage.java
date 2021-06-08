@@ -31,8 +31,8 @@ public class MainPage extends AbstractPage {
     private By dismissCookieButton = By.xpath("//*[@aria-label='dismiss cookie message']");
 
     public MainPage(WebDriver driver) {
-        super(getWebDriver());
-        wait = new WebDriverWait(getWebDriver(), TIME_OUT);
+        super(driver);
+        wait = new WebDriverWait(driver, TIME_OUT);
     }
 
     @Override

@@ -33,8 +33,8 @@ public class RegistrationPage extends AbstractPage {
 
 
     public RegistrationPage(WebDriver driver) {
-        super(getWebDriver());
-        wait = new WebDriverWait(getWebDriver(), TIME_OUT);
+        super(driver);
+        wait = new WebDriverWait(driver, TIME_OUT);
     }
 
     @Override
