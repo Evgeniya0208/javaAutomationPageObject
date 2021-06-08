@@ -22,8 +22,9 @@ public class ProductInformationTest extends BaseTest {
 
     @BeforeClass
     public void setup() throws InterruptedException {
-        mainPage = new MainPage(driver);
         wait = new WebDriverWait(getWebDriver(), 5);
+        mainPage = new MainPage(driver);
+
         mainPage.openPage();
         product = Product.newBuilder().withName("Apple Juice (1000ml)").withPrice("1.99¤").withPicture("http://beeb0b73705f.sn.mynetname.net:3000/assets/public/images/products/apple_juice.jpg").build();
     }

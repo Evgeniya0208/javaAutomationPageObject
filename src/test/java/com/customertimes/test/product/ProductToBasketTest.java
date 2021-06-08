@@ -41,7 +41,6 @@ public class ProductToBasketTest extends BaseTest {
         loginPage.openPage();
         loginPage.loginAs(customer);
 
-
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")));
         WebElement productCounter = getWebDriver().findElement(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span"));
 
