@@ -27,11 +27,8 @@ public class LoginEmptyFormTest {
     @BeforeClass
     public void setup() throws InterruptedException {
         wait = new WebDriverWait(getWebDriver(), 5);
-        getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/login");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
-        WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
-        dismissButton.click();
         loginPage = new LoginPage(getWebDriver());
+        loginPage.openPage();
     }
 
     @AfterClass
