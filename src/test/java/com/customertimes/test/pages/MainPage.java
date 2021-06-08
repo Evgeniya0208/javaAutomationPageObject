@@ -12,7 +12,7 @@ public class MainPage extends AbstractPage {
 
     private WebDriverWait wait;
     JavascriptExecutor js = (JavascriptExecutor)WebdriverRunner.getWebDriver();
-    private String registrationPage = "http://beeb0b73705f.sn.mynetname.net:3000";
+    private String mainPage = "http://beeb0b73705f.sn.mynetname.net:3000";
     private String productAddedToBasketMessage = "Placed Apple Juice (1000ml) into basket.";
     private By productCardPicture = By.cssSelector(".cdk-overlay-pane .img-thumbnail");
     private By productCardPrice = By.cssSelector(".cdk-overlay-pane .item-price");
@@ -29,6 +29,8 @@ public class MainPage extends AbstractPage {
     private String scrollPageDown = "window.scrollTo(0,document.body.scrollHeight)";
     private String scrollToElement = "arguments[0].scrollIntoView(true)";
     private String expectedErrorMessage = "We are out of stock! Sorry for the inconvenience.";
+    private By closeWelcomeBannerButton = By.cssSelector("[aria-label = 'Close Welcome Banner']");
+    private By dismissCookieButton = By.xpath("//*[@aria-label='dismiss cookie message']");
 
     public MainPage(WebDriver driver) {
         super(getWebDriver());
@@ -37,21 +39,20 @@ public class MainPage extends AbstractPage {
 
     @Override
     public void openPage() {
-        getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/search");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
-        WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
+        getWebDriver().get(mainPage);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(closeWelcomeBannerButton));
+        WebElement dismissButton = getWebDriver().findElement(closeWelcomeBannerButton);
         dismissButton.click();
     }
 
     public void dismissCookie() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")));
-        WebElement dismissCookie = getWebDriver().findElement(By.xpath("//*[@aria-label='dismiss cookie message']"));
+        WebElement dismissCookie = getWebDriver().findElement(dismissCookieButton);
         dismissCookie.click();
     }
 
     public String getBasketCounter() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")));
-        String basketCounter = getWebDriver().findElement(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")).getAttribute("innerText");
+        wait.until(ExpectedConditions.presenceOfElementLocated(basketCounter));
+        String basketCounter = getWebDriver().findElement(this.basketCounter).getAttribute("innerText");
         return basketCounter;
     }
 
