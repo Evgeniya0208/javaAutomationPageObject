@@ -1,7 +1,6 @@
-package com.customertimes.test.pages;
+package com.customertimes.pages;
 
 import com.customertimes.framework.driver.WebdriverRunner;
-import com.customertimes.model.Customer;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,7 +11,6 @@ public class MainPage extends AbstractPage {
 
     private WebDriverWait wait;
     JavascriptExecutor js = (JavascriptExecutor)WebdriverRunner.getWebDriver();
-    private String mainPage = "http://beeb0b73705f.sn.mynetname.net:3000";
     private String productAddedToBasketMessage = "Placed Apple Juice (1000ml) into basket.";
     private By productCardPicture = By.cssSelector(".cdk-overlay-pane .img-thumbnail");
     private By productCardPrice = By.cssSelector(".cdk-overlay-pane .item-price");
@@ -39,7 +37,7 @@ public class MainPage extends AbstractPage {
 
     @Override
     public void openPage() {
-        getWebDriver().get(mainPage);
+        getWebDriver().get(BASE_PAGE);
         wait.until(ExpectedConditions.visibilityOfElementLocated(closeWelcomeBannerButton));
         WebElement dismissButton = getWebDriver().findElement(closeWelcomeBannerButton);
         dismissButton.click();

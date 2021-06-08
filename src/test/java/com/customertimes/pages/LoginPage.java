@@ -1,4 +1,4 @@
-package com.customertimes.test.pages;
+package com.customertimes.pages;
 
 import com.customertimes.model.Customer;
 import org.openqa.selenium.By;
@@ -13,7 +13,6 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 public class LoginPage extends AbstractPage {
 
     private WebDriverWait wait;
-    private String loginPage = "http://beeb0b73705f.sn.mynetname.net:3000/#/login";
     private By navbarAccount = By.id("navbarAccount");
     private By userAccountButton = By.cssSelector("button[aria-label='Go to user profile'] span");
     private By passwordFieldLocator = By.cssSelector("input[name=password]");
@@ -23,6 +22,7 @@ public class LoginPage extends AbstractPage {
     private By emptyEmailErrorMessage = By.xpath("//input[@name = 'email']/ancestor::mat-form-field//mat-error");
     private By invalidEmailPasswordErrorMessage = By.xpath("//*[@class='error ng-star-inserted']");
     private By closeWelcomeBannerButton = By.cssSelector("[aria-label = 'Close Welcome Banner']");
+    private String expectedUserName = "evgeniya1@gmail.com";
 
     public LoginPage(WebDriver driver) {
         super(getWebDriver());
@@ -32,14 +32,14 @@ public class LoginPage extends AbstractPage {
     @Override
     public void openPage() {
         wait = new WebDriverWait(getWebDriver(), 5);
-        getWebDriver().get(loginPage);
+        getWebDriver().get(BASE_PAGE + "/login");
         wait.until(ExpectedConditions.presenceOfElementLocated(closeWelcomeBannerButton));
         WebElement dismissButton = getWebDriver().findElement(closeWelcomeBannerButton);
         dismissButton.click();
     }
 
     public String getActualUserName(String currentEmail) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(userAccountButton));
+        wait.until(ExpectedConditions.textToBe(userAccountButton, expectedUserName));
         WebElement userAccount = getWebDriver().findElement(userAccountButton);
         String actualUserName = userAccount.getText();
         return actualUserName;
@@ -67,7 +67,6 @@ public class LoginPage extends AbstractPage {
     }
 
     public void loginAs(Customer customer) {
-        //openPage();
         enterEmail(customer.getEmail());
         enterPassword(customer.getPassword());
         clickOnLoginButton();

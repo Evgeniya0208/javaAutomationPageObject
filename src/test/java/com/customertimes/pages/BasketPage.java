@@ -1,4 +1,4 @@
-package com.customertimes.test.pages;
+package com.customertimes.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +12,6 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class BasketPage extends AbstractPage{
     private WebDriverWait wait;
-    private String registrationPage = "http://beeb0b73705f.sn.mynetname.net:3000/#/basket";
     private By basketTable = By.xpath("// mat-table");
     private By basketTableRow = By.xpath(".//mat-row");
     private By trashButton = By.xpath("//*[@data-icon='trash-alt']");
@@ -26,7 +25,7 @@ public class BasketPage extends AbstractPage{
 
     @Override
     public void openPage() {
-
+        getWebDriver().get(BASE_PAGE + "/basket");
     }
 
     public WebElement getUserBasketContent() {

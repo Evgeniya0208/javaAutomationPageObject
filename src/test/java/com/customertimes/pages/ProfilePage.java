@@ -1,4 +1,4 @@
-package com.customertimes.test.pages;
+package com.customertimes.pages;
 
 public class ProfilePage {
 

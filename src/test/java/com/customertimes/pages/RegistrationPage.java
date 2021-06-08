@@ -1,4 +1,4 @@
-package com.customertimes.test.pages;
+package com.customertimes.pages;
 
 import com.customertimes.model.Customer;
 import org.openqa.selenium.By;
@@ -13,7 +13,6 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 public class RegistrationPage extends AbstractPage {
 
     private WebDriverWait wait;
-    private String registrationPage = "http://beeb0b73705f.sn.mynetname.net:3000/#/register";
     private String expectedSuccessfulMessage = "Registration completed successfully. You can now log in.";
     private By email = By.cssSelector("[aria-label = 'Email address field']");
     private By password = By.cssSelector("[aria-label = 'Field for the password']");
@@ -40,7 +39,7 @@ public class RegistrationPage extends AbstractPage {
 
     @Override
     public void openPage() {
-        getWebDriver().get(registrationPage);
+        getWebDriver().get(BASE_PAGE + "/register");
         wait.until(ExpectedConditions.presenceOfElementLocated(closeWelcomeBannerButton));
         WebElement dismissButton = getWebDriver().findElement(closeWelcomeBannerButton);
         dismissButton.click();

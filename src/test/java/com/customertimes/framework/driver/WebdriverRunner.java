@@ -7,11 +7,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class WebdriverRunner {
 
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     private WebdriverRunner() {
     }
@@ -39,8 +44,16 @@ public class WebdriverRunner {
                     break;
                 }
                 default: {
-                    WebDriverManager.chromedriver().setup();
-                    driver.set(new ChromeDriver());
+                    if (TestConfig.CONFIG.remote()) {
+                        try {
+                            driver.set(new RemoteWebDriver(new URL(TestConfig.CONFIG.seleniumServerUrl()), DesiredCapabilities.chrome()));
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        WebDriverManager.chromedriver().setup();
+                        driver.set(new ChromeDriver());
+                    }
                 }
             }
             driver.get().manage().window().maximize();
