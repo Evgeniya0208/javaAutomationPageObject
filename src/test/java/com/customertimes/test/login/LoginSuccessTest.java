@@ -25,7 +25,6 @@ public class LoginSuccessTest extends BaseTest {
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
         loginPage = new LoginPage(driver);
         loginPage.openPage();
-
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
     }
 
