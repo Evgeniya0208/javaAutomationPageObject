@@ -30,6 +30,7 @@ public class RegistrationPage extends AbstractPage {
     private By emptySecurityQuestionError = By.xpath("//*[@name = 'securityQuestion']/ancestor::mat-form-field//mat-error");
     private By emptyAnswerError = By.xpath("//*[@aria-owns = 'securityAnswerControl']/ancestor::mat-form-field//mat-error");
     private By passwordDoNotMatchError = By.xpath("//*[@aria-label = 'Field to confirm the password']/ancestor::mat-form-field//mat-error");
+    private By closeWelcomeBannerButton = By.cssSelector("[aria-label = 'Close Welcome Banner']");
 
 
     public RegistrationPage(WebDriver driver) {
@@ -39,9 +40,9 @@ public class RegistrationPage extends AbstractPage {
 
     @Override
     public void openPage() {
-        getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/register");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
-        WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
+        getWebDriver().get(registrationPage);
+        wait.until(ExpectedConditions.presenceOfElementLocated(closeWelcomeBannerButton));
+        WebElement dismissButton = getWebDriver().findElement(closeWelcomeBannerButton);
         dismissButton.click();
     }
 
