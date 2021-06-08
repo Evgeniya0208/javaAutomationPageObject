@@ -41,35 +41,21 @@ public class ProductToBasketTest extends BaseTest {
         loginPage.openPage();
         loginPage.loginAs(customer);
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")));
-        WebElement productCounter = getWebDriver().findElement(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span"));
-
-        if (!productCounter.getAttribute("innerText").equals("0")){
-            getWebDriver().findElement(By.xpath("//*[@aria-label = 'Show the shopping cart']")).click();
-            List<WebElement> basketProducts = getWebDriver().findElements(By.xpath(".//mat-row"));
-
-            for (WebElement basketProduct : basketProducts) {
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//mat-row")));
-                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@data-icon='trash-alt']")));
-                getWebDriver().findElement(By.xpath("//*[@data-icon='trash-alt']")).click();
-            }
+        if (!mainPage.getBasketCounter().equals("0"))
+        {
+            mainPage.clickOnBasket();
+            basketPage.getEmptyBasket();
         }
-        WebElement goToMainPage = getWebDriver().findElement(By.xpath("//*[@alt='OWASP Juice Shop']"));
-        goToMainPage.click();
-
+        basketPage.returnToMainPage();
 
         product = Product.newBuilder().withName(" Apple Juice (1000ml)  1 1.99¤").build();
     }
 
+
     @AfterClass
     public void cleanData() {
-        List<WebElement> basketProducts = getWebDriver().findElements(By.xpath(".//mat-row"));
-        for (WebElement basketProduct : basketProducts) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//mat-row")));
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@data-icon='trash-alt']")));
-            getWebDriver().findElement(By.xpath("//*[@data-icon='trash-alt']")).click();
-        }
-            WebdriverRunner.closeWebDriver();
+        basketPage.getEmptyBasket();
+        WebdriverRunner.closeWebDriver();
         }
 
     @Test
@@ -78,9 +64,7 @@ public class ProductToBasketTest extends BaseTest {
 
         WebElement actualProductMessage = mainPage.getAddToBasketSuccessMessage();
         Assert.assertEquals(actualProductMessage.getText(), productAddedToBasketMessage, "Message is not expected");
-
-        WebElement productCounter = mainPage.getBasketCounter();
-        Assert.assertEquals(productCounter.getAttribute("innerText"), expectedProductCounter, "Product quantity is not expected");
+        Assert.assertEquals(mainPage.getBasketCounter(), expectedProductCounter, "Product quantity is not expected");
 
         mainPage.clickOnBasket();
 

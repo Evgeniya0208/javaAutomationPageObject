@@ -49,6 +49,12 @@ public class MainPage extends AbstractPage {
         dismissCookie.click();
     }
 
+    public String getBasketCounter() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")));
+        String basketCounter = getWebDriver().findElement(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")).getAttribute("innerText");
+        return basketCounter;
+    }
+
     public String getActualProductPictureSource() {
         String actualProductPictureSource = getWebDriver().findElement(productCardPicture).getAttribute("src");
         return actualProductPictureSource;
@@ -79,10 +85,6 @@ public class MainPage extends AbstractPage {
         wait.until(ExpectedConditions.textToBe(addToBasketSuccessMessage, productAddedToBasketMessage));
         WebElement actualProductMessage = getWebDriver().findElement(addToBasketSuccessMessage);
         return actualProductMessage;
-    }
-
-    public WebElement getBasketCounter() {
-        return getWebDriver().findElement(basketCounter);
     }
 
     public void clickOnBasket() {

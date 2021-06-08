@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class BasketPage extends AbstractPage{
@@ -28,5 +30,20 @@ public class BasketPage extends AbstractPage{
         wait.until(ExpectedConditions.attributeToBeNotEmpty(getWebDriver().findElement(basketTable), "innerText"));
         WebElement userBasketContent = getWebDriver().findElement(basketTable);
         return userBasketContent;
+    }
+
+    public void getEmptyBasket() {
+        List<WebElement> basketProducts = getWebDriver().findElements(By.xpath(".//mat-row"));
+
+        for (WebElement basketProduct : basketProducts) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//mat-row")));
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@data-icon='trash-alt']")));
+            getWebDriver().findElement(By.xpath("//*[@data-icon='trash-alt']")).click();
+        }
+    }
+
+    public void returnToMainPage() {
+        WebElement goToMainPage = getWebDriver().findElement(By.xpath("//*[@alt='OWASP Juice Shop']"));
+        goToMainPage.click();
     }
 }
