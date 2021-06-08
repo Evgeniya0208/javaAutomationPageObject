@@ -24,12 +24,9 @@ public class LoginInvalidEmailTest extends BaseTest {
     @BeforeClass
     public void setup() throws InterruptedException {
         wait = new WebDriverWait(getWebDriver(), 5);
-        getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/login");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
-        WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
-        dismissButton.click();
         customer = Customer.newBuilder().withName("evgeniya123@gmail.com").withPassword("123456").build();
         loginPage = new LoginPage(driver);
+        loginPage.openPage();
     }
 
     @AfterClass
