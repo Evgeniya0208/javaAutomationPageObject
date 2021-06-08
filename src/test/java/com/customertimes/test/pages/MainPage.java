@@ -43,6 +43,12 @@ public class MainPage extends AbstractPage {
         dismissButton.click();
     }
 
+    public void dismissCookie() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")));
+        WebElement dismissCookie = getWebDriver().findElement(By.xpath("//*[@aria-label='dismiss cookie message']"));
+        dismissCookie.click();
+    }
+
     public String getActualProductPictureSource() {
         String actualProductPictureSource = getWebDriver().findElement(productCardPicture).getAttribute("src");
         return actualProductPictureSource;

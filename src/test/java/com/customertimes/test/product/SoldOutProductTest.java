@@ -30,20 +30,14 @@ public class SoldOutProductTest extends BaseTest {
     @BeforeClass
     public void setup() throws InterruptedException {
         wait = new WebDriverWait(getWebDriver(), 10);
-        getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/login");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
-        WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
-        dismissButton.click();
-
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
         loginPage = new LoginPage(driver);
-        loginPage.loginAs(customer);
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")));
-        WebElement dismissCookie = getWebDriver().findElement(By.xpath("//*[@aria-label='dismiss cookie message']"));
-        dismissCookie.click();
-        mainPage = new MainPage(driver);
         js = (JavascriptExecutor)WebdriverRunner.getWebDriver();
+        mainPage = new MainPage(driver);
+
+        loginPage.openPage();
+        loginPage.loginAs(customer);
+        mainPage.dismissCookie();
     }
 
     @AfterClass
