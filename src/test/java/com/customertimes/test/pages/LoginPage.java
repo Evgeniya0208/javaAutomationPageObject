@@ -22,6 +22,7 @@ public class LoginPage extends AbstractPage {
     private By emptyPasswordErrorMessage = By.xpath("//input[@name = 'password']/ancestor::mat-form-field//mat-error");
     private By emptyEmailErrorMessage = By.xpath("//input[@name = 'email']/ancestor::mat-form-field//mat-error");
     private By invalidEmailPasswordErrorMessage = By.xpath("//*[@class='error ng-star-inserted']");
+    private By closeWelcomeBannerButton = By.cssSelector("[aria-label = 'Close Welcome Banner']");
 
     public LoginPage(WebDriver driver) {
         super(getWebDriver());
@@ -31,9 +32,9 @@ public class LoginPage extends AbstractPage {
     @Override
     public void openPage() {
         wait = new WebDriverWait(getWebDriver(), 5);
-        getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/login");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
-        WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
+        getWebDriver().get(loginPage);
+        wait.until(ExpectedConditions.presenceOfElementLocated(closeWelcomeBannerButton));
+        WebElement dismissButton = getWebDriver().findElement(closeWelcomeBannerButton);
         dismissButton.click();
     }
 
