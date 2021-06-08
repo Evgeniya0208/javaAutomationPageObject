@@ -24,10 +24,7 @@ public class ProductInformationTest extends BaseTest {
     public void setup() throws InterruptedException {
         mainPage = new MainPage(driver);
         wait = new WebDriverWait(getWebDriver(), 5);
-        getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/search");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
-        WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
-        dismissButton.click();
+        mainPage.openPage();
         product = Product.newBuilder().withName("Apple Juice (1000ml)").withPrice("1.99¤").withPicture("http://beeb0b73705f.sn.mynetname.net:3000/assets/public/images/products/apple_juice.jpg").build();
     }
 

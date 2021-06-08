@@ -37,7 +37,10 @@ public class MainPage extends AbstractPage {
 
     @Override
     public void openPage() {
-
+        getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/search");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
+        WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
+        dismissButton.click();
     }
 
     public String getActualProductPictureSource() {

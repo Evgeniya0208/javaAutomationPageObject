@@ -33,14 +33,14 @@ public class ProductToBasketTest extends BaseTest {
     @BeforeClass
     public void setup() throws InterruptedException {
         wait = new WebDriverWait(getWebDriver(), 10);
-        getWebDriver().get("http://beeb0b73705f.sn.mynetname.net:3000/#/login");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[aria-label = 'Close Welcome Banner']")));
-        WebElement dismissButton = getWebDriver().findElement(By.cssSelector("[aria-label = 'Close Welcome Banner']"));
-        dismissButton.click();
-
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
         loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        basketPage = new BasketPage(driver);
+
+        loginPage.openPage();
         loginPage.loginAs(customer);
+
 
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span")));
         WebElement productCounter = getWebDriver().findElement(By.xpath("//*[contains(text(), 'Your Basket')]/following-sibling::span"));
@@ -57,8 +57,8 @@ public class ProductToBasketTest extends BaseTest {
         }
         WebElement goToMainPage = getWebDriver().findElement(By.xpath("//*[@alt='OWASP Juice Shop']"));
         goToMainPage.click();
-        mainPage = new MainPage(driver);
-        basketPage = new BasketPage(driver);
+
+
         product = Product.newBuilder().withName(" Apple Juice (1000ml)  1 1.99¤").build();
     }
 
