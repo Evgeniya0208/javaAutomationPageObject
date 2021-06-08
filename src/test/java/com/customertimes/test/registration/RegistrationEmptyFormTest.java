@@ -45,7 +45,7 @@ public class RegistrationEmptyFormTest extends BaseTest {
         softAssert.assertEquals(registrationPage.getActualEmptyEmailErrorMessage(), emptyEmailMessage, "Error message is not expected");
         softAssert.assertEquals(registrationPage.getActualEmptyPasswordErrorMessage(), emptyPasswordMessage, "Error 0message is not expected");
         softAssert.assertEquals(registrationPage.getActualEmptyRepeatPasswordErrorMessage(), emptyRepeatPasswordMessage, "Error message is not expected");
-        softAssert.assertEquals(registrationPage.getActualEmptyRepeatPasswordErrorMessage(), emptySecurityQuestionMessage, "Error message is not expected");
+        softAssert.assertEquals(registrationPage.getActualEmptySecurityQuestionErrorMessage(), emptySecurityQuestionMessage, "Error message is not expected");
         softAssert.assertEquals(registrationPage.getActualEmptyAnswerErrorMessage(), emptyAnswerMessage, "Error message is not expected");
         softAssert.assertAll();
     }
