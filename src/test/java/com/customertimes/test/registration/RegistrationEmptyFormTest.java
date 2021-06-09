@@ -22,7 +22,7 @@ public class RegistrationEmptyFormTest extends BaseTest {
 
 
     @BeforeClass
-    public void setup() throws InterruptedException {
+    public void openPageBeforeClass() throws InterruptedException {
         wait = new WebDriverWait(getWebDriver(), 5);
         registrationPage = new RegistrationPage(driver);
         registrationPage.openPage();

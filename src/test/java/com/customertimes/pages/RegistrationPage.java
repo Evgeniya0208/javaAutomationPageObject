@@ -39,11 +39,10 @@ public class RegistrationPage extends AbstractPage {
 
     @Override
     public void openPage() {
-        getWebDriver().get(BASE_PAGE + "/register");
-        wait.until(ExpectedConditions.presenceOfElementLocated(closeWelcomeBannerButton));
-        WebElement dismissButton = getWebDriver().findElement(closeWelcomeBannerButton);
-        dismissButton.click();
+        driver.get(BASE_PAGE + "/register");
     }
+
+
 
     public void registerAsCustomer(Customer customer) {
         enterEmail(customer.getEmail());

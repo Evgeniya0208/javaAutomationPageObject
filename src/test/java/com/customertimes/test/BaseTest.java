@@ -12,24 +12,25 @@ public class BaseTest {
     protected WebDriver driver;
 
     @BeforeSuite
-    public void setup() throws InterruptedException {
-        driver = WebdriverRunner.getWebDriver();
+    public void setup() {
         System.out.println("This is before suite");
     }
 
     @AfterSuite
     public void tearDown() {
-        WebdriverRunner.closeWebDriver();
         System.out.println("This is after suite");
     }
 
     @BeforeClass
     public void beforeClassInTheBaseTest() {
-        System.out.println("This is before class in the BaseTest");
+        System.out.println("This is before class in the base test");
+        driver = WebdriverRunner.getWebDriver();
     }
 
     @AfterClass
-    public void cleanData() {
-
+    public void afterClass() {
+        WebdriverRunner.closeWebDriver();
+        System.out.println("This is after suite");
     }
+
 }

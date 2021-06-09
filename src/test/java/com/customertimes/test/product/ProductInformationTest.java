@@ -18,8 +18,8 @@ public class ProductInformationTest extends BaseTest {
     MainPage mainPage;
 
     @BeforeClass
-    public void setup() throws InterruptedException {
-        wait = new WebDriverWait(getWebDriver(), 5);
+    public void openPageBeforeClass() throws InterruptedException {
+        wait = new WebDriverWait(driver, 5);
         mainPage = new MainPage(driver);
 
         mainPage.openPage();

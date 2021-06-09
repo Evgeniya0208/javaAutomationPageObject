@@ -23,7 +23,7 @@ public class SoldOutProductTest extends BaseTest {
     private String expectedErrorMessage = "We are out of stock! Sorry for the inconvenience.";
 
     @BeforeClass
-    public void setup() throws InterruptedException {
+    public void openPageBeforeClass() throws InterruptedException {
         wait = new WebDriverWait(getWebDriver(), 10);
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
         loginPage = new LoginPage(driver);

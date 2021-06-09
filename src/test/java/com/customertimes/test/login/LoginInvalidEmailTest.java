@@ -2,6 +2,7 @@ package com.customertimes.test.login;
 
 import com.customertimes.framework.driver.WebdriverRunner;
 import com.customertimes.model.Customer;
+import com.customertimes.pages.MainPage;
 import com.customertimes.test.BaseTest;
 import com.customertimes.pages.LoginPage;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,18 +18,17 @@ public class LoginInvalidEmailTest extends BaseTest {
     private String invalidEmailPasswordMessage = "Invalid email or password.";
     Customer customer;
     LoginPage loginPage;
+    MainPage mainPage;
 
     @BeforeClass
-    public void setup() throws InterruptedException {
-        wait = new WebDriverWait(getWebDriver(), 5);
+    public void openPageBeforeClass() throws InterruptedException {
+        wait = new WebDriverWait(driver, 5);
         customer = Customer.newBuilder().withName("evgeniya123@gmail.com").withPassword("123456").build();
         loginPage = new LoginPage(driver);
-        loginPage.openPage();
-    }
+        mainPage = new MainPage(driver);
 
-    @AfterClass
-    public void tearDown() {
-        WebdriverRunner.closeWebDriver();
+        loginPage.openPage();
+        mainPage.closeWelcomeBanner();
     }
 
     @Test

@@ -2,31 +2,31 @@ package com.customertimes.test.login;
 
 import com.customertimes.framework.driver.WebdriverRunner;
 import com.customertimes.pages.LoginPage;
+import com.customertimes.pages.MainPage;
+import com.customertimes.test.BaseTest;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
-public class LoginEmptyFormTest {
+public class LoginEmptyFormTest extends BaseTest {
 
     WebDriverWait wait;
     private String emptyEmailFieldMessage = "Please provide an email address.";
     private String emptyPasswordFieldMessage = "Please provide a password.";
     LoginPage loginPage;
+    MainPage mainPage;
 
     @BeforeClass
-    public void setup() throws InterruptedException {
-        wait = new WebDriverWait(getWebDriver(), 5);
-        loginPage = new LoginPage(getWebDriver());
-        loginPage.openPage();
-    }
+    public void openPageBeforeClass() throws InterruptedException {
+        wait = new WebDriverWait(driver, 5);
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
 
-    @AfterClass
-    public void tearDown() {
-        WebdriverRunner.closeWebDriver();
+        loginPage.openPage();
+        mainPage.closeWelcomeBanner();
     }
 
     @Test

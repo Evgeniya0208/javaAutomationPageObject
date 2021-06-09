@@ -27,12 +27,12 @@ public class ProductToBasketTest extends BaseTest {
     private String expectedProductCounter = "1";
 
     @BeforeClass
-    public void setup() throws InterruptedException {
+    public void openPageBeforeClass() throws InterruptedException {
         wait = new WebDriverWait(getWebDriver(), 10);
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
-        loginPage = new LoginPage(driver);
-        mainPage = new MainPage(driver);
-        basketPage = new BasketPage(driver);
+        loginPage = new LoginPage(getWebDriver());
+        mainPage = new MainPage(getWebDriver());
+        basketPage = new BasketPage(getWebDriver());
 
         loginPage.openPage();
         loginPage.loginAs(customer);

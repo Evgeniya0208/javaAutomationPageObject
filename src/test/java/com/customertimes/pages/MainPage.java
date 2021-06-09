@@ -37,8 +37,11 @@ public class MainPage extends AbstractPage {
 
     @Override
     public void openPage() {
-        getWebDriver().get(BASE_PAGE);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(closeWelcomeBannerButton));
+        driver.get(BASE_PAGE);
+    }
+
+    public void closeWelcomeBanner() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(closeWelcomeBannerButton));
         WebElement dismissButton = getWebDriver().findElement(closeWelcomeBannerButton);
         dismissButton.click();
     }

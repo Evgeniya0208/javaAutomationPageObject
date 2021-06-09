@@ -21,7 +21,6 @@ public class LoginPage extends AbstractPage {
     private By emptyPasswordErrorMessage = By.xpath("//input[@name = 'password']/ancestor::mat-form-field//mat-error");
     private By emptyEmailErrorMessage = By.xpath("//input[@name = 'email']/ancestor::mat-form-field//mat-error");
     private By invalidEmailPasswordErrorMessage = By.xpath("//*[@class='error ng-star-inserted']");
-    private By closeWelcomeBannerButton = By.cssSelector("[aria-label = 'Close Welcome Banner']");
     private String expectedUserName = "evgeniya1@gmail.com";
 
     public LoginPage(WebDriver driver) {
@@ -31,37 +30,34 @@ public class LoginPage extends AbstractPage {
 
     @Override
     public void openPage() {
-        wait = new WebDriverWait(getWebDriver(), 5);
-        getWebDriver().get(BASE_PAGE + "/login");
-        wait.until(ExpectedConditions.presenceOfElementLocated(closeWelcomeBannerButton));
-        WebElement dismissButton = getWebDriver().findElement(closeWelcomeBannerButton);
-        dismissButton.click();
+        wait = new WebDriverWait(driver, 5);
+        driver.get(BASE_PAGE + "/login");
     }
 
     public String getActualUserName(String currentEmail) {
         wait.until(ExpectedConditions.textToBe(userAccountButton, expectedUserName));
-        WebElement userAccount = getWebDriver().findElement(userAccountButton);
+        WebElement userAccount = driver.findElement(userAccountButton);
         String actualUserName = userAccount.getText();
         return actualUserName;
     }
 
     public void clickOnAccountButton() {
         wait.until(ExpectedConditions.presenceOfElementLocated(navbarAccount));
-        getWebDriver().findElement(navbarAccount).click();
+        driver.findElement(navbarAccount).click();
     }
 
     public void clickOnLoginButton() {
-        getWebDriver().findElement(loginButton).click();
+        driver.findElement(loginButton).click();
     }
 
     public void enterEmail(String email) {
-        WebElement emailField = getWebDriver().findElement(emailLocator);
+        WebElement emailField = driver.findElement(emailLocator);
         emailField.clear();
         emailField.sendKeys(email);
     }
 
     public void enterPassword(String password) {
-        WebElement passwordField = getWebDriver().findElement(passwordFieldLocator);
+        WebElement passwordField = driver.findElement(passwordFieldLocator);
         passwordField.clear();
         passwordField.sendKeys(password);
     }
@@ -73,30 +69,30 @@ public class LoginPage extends AbstractPage {
     }
 
     public void leftPasswordFieldEmpty() {
-        WebElement passwordField = getWebDriver().findElement(passwordFieldLocator);
+        WebElement passwordField = driver.findElement(passwordFieldLocator);
         passwordField.click();
         passwordField.sendKeys(Keys.TAB);
     }
 
     public void leftEmailFieldEmpty() {
-        WebElement emailField = getWebDriver().findElement(emailLocator);
+        WebElement emailField = driver.findElement(emailLocator);
         emailField.click();
         emailField.sendKeys(Keys.TAB);
     }
 
     public String getActualEmptyPasswordErrorMessage() {
-        WebElement passwordError = wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(emptyPasswordErrorMessage)));
+        WebElement passwordError = wait.until(ExpectedConditions.visibilityOf(driver.findElement(emptyPasswordErrorMessage)));
         String actualPasswordErrorMessage = passwordError.getText();
         return actualPasswordErrorMessage;
     }
 
     public String getActualEmptyEmailErrorMessage() {
-        WebElement emailError = wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(emptyEmailErrorMessage)));
+        WebElement emailError = wait.until(ExpectedConditions.visibilityOf(driver.findElement(emptyEmailErrorMessage)));
         return emailError.getText();
     }
     public String getActualInvalidEmailPasswordError() {
         wait.until(ExpectedConditions.presenceOfElementLocated(invalidEmailPasswordErrorMessage));
-        WebElement error = getWebDriver().findElement(invalidEmailPasswordErrorMessage);
+        WebElement error = driver.findElement(invalidEmailPasswordErrorMessage);
         String actualEmailPasswordError = error.getText();
         return actualEmailPasswordError;
     }

@@ -19,7 +19,7 @@ public class RegisterNotMatchedPasswordTest extends BaseTest {
     private String expectedErrorMessage = "Passwords do not match";
 
     @BeforeClass
-    public void setup() throws InterruptedException {
+    public void openPageBeforeClass() throws InterruptedException {
         wait = new WebDriverWait(getWebDriver(), 5);
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").withRepeatPassword("12345").build();
         registrationPage = new RegistrationPage(driver);

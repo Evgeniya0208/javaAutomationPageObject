@@ -20,7 +20,7 @@ public class RegistrationSuccessTest extends BaseTest {
     private String expectedSuccessfulMessage = "Registration completed successfully. You can now log in.";
 
     @BeforeClass
-    public void setup() throws InterruptedException {
+    public void openPageBeforeClass() throws InterruptedException {
         wait = new WebDriverWait(getWebDriver(), 5);
         customer = Customer.newBuilder().withName("evgeniya" + System.currentTimeMillis() + "@gmail.com").withPassword("123456").withRepeatPassword("123456").withAnswer("Cat").build();
         registrationPage = new RegistrationPage(driver);
