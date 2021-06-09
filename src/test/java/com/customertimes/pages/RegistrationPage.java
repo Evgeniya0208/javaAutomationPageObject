@@ -29,8 +29,6 @@ public class RegistrationPage extends AbstractPage {
     private By emptySecurityQuestionError = By.xpath("//*[@name = 'securityQuestion']/ancestor::mat-form-field//mat-error");
     private By emptyAnswerError = By.xpath("//*[@aria-owns = 'securityAnswerControl']/ancestor::mat-form-field//mat-error");
     private By passwordDoNotMatchError = By.xpath("//*[@aria-label = 'Field to confirm the password']/ancestor::mat-form-field//mat-error");
-    //private By closeWelcomeBannerButton = By.cssSelector("[aria-label = 'Close Welcome Banner']");
-
 
     public RegistrationPage(WebDriver driver) {
         super(driver);
@@ -41,8 +39,6 @@ public class RegistrationPage extends AbstractPage {
     public void openPage() {
         driver.get(BASE_PAGE + "/register");
     }
-
-
 
     public void registerAsCustomer(Customer customer) {
         enterEmail(customer.getEmail());

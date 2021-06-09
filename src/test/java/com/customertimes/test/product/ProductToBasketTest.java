@@ -28,13 +28,14 @@ public class ProductToBasketTest extends BaseTest {
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(getWebDriver(), 10);
+        wait = new WebDriverWait(driver, 10);
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
-        loginPage = new LoginPage(getWebDriver());
-        mainPage = new MainPage(getWebDriver());
-        basketPage = new BasketPage(getWebDriver());
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        basketPage = new BasketPage(driver);
 
         loginPage.openPage();
+        mainPage.closeWelcomeBanner();
         loginPage.loginAs(customer);
 
         if (!mainPage.getBasketCounter().equals("0"))
@@ -51,7 +52,6 @@ public class ProductToBasketTest extends BaseTest {
     @AfterClass
     public void cleanData() {
         basketPage.getEmptyBasket();
-        WebdriverRunner.closeWebDriver();
         }
 
     @Test

@@ -25,27 +25,27 @@ public class BasketPage extends AbstractPage{
 
     @Override
     public void openPage() {
-        getWebDriver().get(BASE_PAGE + "/basket");
+        driver.get(BASE_PAGE + "/basket");
     }
 
     public WebElement getUserBasketContent() {
-        wait.until(ExpectedConditions.attributeToBeNotEmpty(getWebDriver().findElement(basketTable), "innerText"));
-        WebElement userBasketContent = getWebDriver().findElement(basketTable);
+        wait.until(ExpectedConditions.attributeToBeNotEmpty(driver.findElement(basketTable), "innerText"));
+        WebElement userBasketContent = driver.findElement(basketTable);
         return userBasketContent;
     }
 
     public void getEmptyBasket() {
-        List<WebElement> basketProducts = getWebDriver().findElements(basketTableRow);
+        List<WebElement> basketProducts = driver.findElements(basketTableRow);
 
         for (WebElement basketProduct : basketProducts) {
             wait.until(ExpectedConditions.visibilityOfElementLocated(basketTableRow));
             wait.until(ExpectedConditions.elementToBeClickable(trashButton));
-            getWebDriver().findElement(trashButton).click();
+            driver.findElement(trashButton).click();
         }
     }
 
     public void returnToMainPage() {
-        WebElement goToMainPage = getWebDriver().findElement(mainPageButton);
+        WebElement goToMainPage = driver.findElement(mainPageButton);
         goToMainPage.click();
     }
 }

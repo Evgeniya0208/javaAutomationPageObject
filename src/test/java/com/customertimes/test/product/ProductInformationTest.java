@@ -21,14 +21,9 @@ public class ProductInformationTest extends BaseTest {
     public void openPageBeforeClass() throws InterruptedException {
         wait = new WebDriverWait(driver, 5);
         mainPage = new MainPage(driver);
-
         mainPage.openPage();
+        mainPage.closeWelcomeBanner();
         product = Product.newBuilder().withName("Apple Juice (1000ml)").withPrice("1.99¤").withPicture("http://beeb0b73705f.sn.mynetname.net:3000/assets/public/images/products/apple_juice.jpg").build();
-    }
-
-    @AfterClass
-    public void tearDown() {
-        WebdriverRunner.closeWebDriver();
     }
 
     @Test

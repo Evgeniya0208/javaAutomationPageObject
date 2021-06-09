@@ -24,20 +24,16 @@ public class SoldOutProductTest extends BaseTest {
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(getWebDriver(), 10);
+        wait = new WebDriverWait(driver, 10);
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
         loginPage = new LoginPage(driver);
         js = (JavascriptExecutor)WebdriverRunner.getWebDriver();
         mainPage = new MainPage(driver);
 
         loginPage.openPage();
+        mainPage.closeWelcomeBanner();
         loginPage.loginAs(customer);
         mainPage.dismissCookie();
-    }
-
-    @AfterClass
-    public void tearDown() {
-        WebdriverRunner.closeWebDriver();
     }
 
     @Test

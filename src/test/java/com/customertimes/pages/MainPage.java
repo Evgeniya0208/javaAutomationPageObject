@@ -42,55 +42,55 @@ public class MainPage extends AbstractPage {
 
     public void closeWelcomeBanner() {
         wait.until(ExpectedConditions.presenceOfElementLocated(closeWelcomeBannerButton));
-        WebElement dismissButton = getWebDriver().findElement(closeWelcomeBannerButton);
+        WebElement dismissButton = driver.findElement(closeWelcomeBannerButton);
         dismissButton.click();
     }
 
     public void dismissCookie() {
-        WebElement dismissCookie = getWebDriver().findElement(dismissCookieButton);
+        WebElement dismissCookie = driver.findElement(dismissCookieButton);
         dismissCookie.click();
     }
 
     public String getBasketCounter() {
         wait.until(ExpectedConditions.presenceOfElementLocated(basketCounter));
-        String basketCounter = getWebDriver().findElement(this.basketCounter).getAttribute("innerText");
+        String basketCounter = driver.findElement(this.basketCounter).getAttribute("innerText");
         return basketCounter;
     }
 
     public String getActualProductPictureSource() {
-        String actualProductPictureSource = getWebDriver().findElement(productCardPicture).getAttribute("src");
+        String actualProductPictureSource = driver.findElement(productCardPicture).getAttribute("src");
         return actualProductPictureSource;
     }
 
     public String getActualProductPrice() {
-        return getWebDriver().findElement(productCardPrice).getText();
+        return driver.findElement(productCardPrice).getText();
     }
 
     public String getActualProductName() {
-        wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(productCardName)));
-        String actualProductName = getWebDriver().findElement(productCardName).getText();
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(productCardName)));
+        String actualProductName = driver.findElement(productCardName).getText();
         return actualProductName;
     }
 
     public void clickOnProduct() {
-        WebElement desiredProduct = getWebDriver().findElement(productInList);
+        WebElement desiredProduct = driver.findElement(productInList);
         desiredProduct.click();
     }
 
     public void addProductToBasket() {
         wait.until(ExpectedConditions.presenceOfElementLocated(addToBasketButton));
-        WebElement addToBasket = getWebDriver().findElement(addToBasketButton);
+        WebElement addToBasket = driver.findElement(addToBasketButton);
         addToBasket.click();
     }
 
     public WebElement getAddToBasketSuccessMessage() {
         wait.until(ExpectedConditions.textToBe(addToBasketSuccessMessage, productAddedToBasketMessage));
-        WebElement actualProductMessage = getWebDriver().findElement(addToBasketSuccessMessage);
+        WebElement actualProductMessage = driver.findElement(addToBasketSuccessMessage);
         return actualProductMessage;
     }
 
     public void clickOnBasket() {
-        WebElement userBasket = getWebDriver().findElement(basketIcon);
+        WebElement userBasket = driver.findElement(basketIcon);
         userBasket.click();
     }
 
@@ -100,23 +100,23 @@ public class MainPage extends AbstractPage {
     }
 
     public void goNextPage() {
-        WebElement nextPage = getWebDriver().findElement(nextPageButton);
+        WebElement nextPage = driver.findElement(nextPageButton);
         nextPage.click();
     }
 
     public void goSoldOutProduct() {
-        WebElement soldOutProduct = getWebDriver().findElement(this.soldOutProduct);
+        WebElement soldOutProduct = driver.findElement(this.soldOutProduct);
         js.executeScript(scrollToElement, soldOutProduct);
     }
 
     public String getSoldOutErrorMessage() {
         wait.until(ExpectedConditions.textToBe(errorToastMessage, expectedErrorMessage));
-        String errorMessage = getWebDriver().findElement(errorToastMessage).getText();
+        String errorMessage = driver.findElement(errorToastMessage).getText();
         return errorMessage;
     }
 
     public void addSoldOutToBasket() {
-        WebElement addToBasketAnySoldOutProduct = getWebDriver().findElement(addSoldOutToBasket);
+        WebElement addToBasketAnySoldOutProduct = driver.findElement(addSoldOutToBasket);
         addToBasketAnySoldOutProduct.click();
     }
 }
