@@ -1,5 +1,6 @@
 package com.customertimes.test.registration;
 import com.customertimes.framework.driver.WebdriverRunner;
+import com.customertimes.pages.MainPage;
 import com.customertimes.test.BaseTest;
 import com.customertimes.pages.RegistrationPage;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,6 +15,7 @@ public class RegistrationEmptyFormTest extends BaseTest {
 
     WebDriverWait wait;
     RegistrationPage registrationPage;
+    MainPage mainPage;
     private String emptyEmailMessage = "Please provide an email address.";
     private String emptyPasswordMessage = "Please provide a password.";
     private String emptyRepeatPasswordMessage = "Please repeat your password.";
@@ -23,14 +25,11 @@ public class RegistrationEmptyFormTest extends BaseTest {
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(getWebDriver(), 5);
+        wait = new WebDriverWait(driver, 5);
         registrationPage = new RegistrationPage(driver);
+        mainPage = new MainPage(driver);
         registrationPage.openPage();
-    }
-
-    @AfterClass
-    public void tearDown() {
-        WebdriverRunner.closeWebDriver();
+        mainPage.closeWelcomeBanner();
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.customertimes.test.registration;
 
 import com.customertimes.framework.driver.WebdriverRunner;
 import com.customertimes.model.Customer;
+import com.customertimes.pages.MainPage;
 import com.customertimes.test.BaseTest;
 import com.customertimes.pages.RegistrationPage;
 import org.openqa.selenium.WebElement;
@@ -17,19 +18,17 @@ public class RegistrationSuccessTest extends BaseTest {
     WebDriverWait wait;
     Customer customer;
     RegistrationPage registrationPage;
+    MainPage mainPage;
     private String expectedSuccessfulMessage = "Registration completed successfully. You can now log in.";
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(getWebDriver(), 5);
+        wait = new WebDriverWait(driver, 5);
         customer = Customer.newBuilder().withName("evgeniya" + System.currentTimeMillis() + "@gmail.com").withPassword("123456").withRepeatPassword("123456").withAnswer("Cat").build();
         registrationPage = new RegistrationPage(driver);
+        mainPage = new MainPage(driver);
         registrationPage.openPage();
-    }
-
-    @AfterClass
-    public void tearDown() {
-        WebdriverRunner.closeWebDriver();
+        mainPage.closeWelcomeBanner();
     }
 
     @Test

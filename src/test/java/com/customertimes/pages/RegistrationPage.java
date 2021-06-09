@@ -29,7 +29,7 @@ public class RegistrationPage extends AbstractPage {
     private By emptySecurityQuestionError = By.xpath("//*[@name = 'securityQuestion']/ancestor::mat-form-field//mat-error");
     private By emptyAnswerError = By.xpath("//*[@aria-owns = 'securityAnswerControl']/ancestor::mat-form-field//mat-error");
     private By passwordDoNotMatchError = By.xpath("//*[@aria-label = 'Field to confirm the password']/ancestor::mat-form-field//mat-error");
-    private By closeWelcomeBannerButton = By.cssSelector("[aria-label = 'Close Welcome Banner']");
+    //private By closeWelcomeBannerButton = By.cssSelector("[aria-label = 'Close Welcome Banner']");
 
 
     public RegistrationPage(WebDriver driver) {
@@ -56,78 +56,78 @@ public class RegistrationPage extends AbstractPage {
 
     public WebElement getRegistrationSuccessMessage() {
         wait.until(ExpectedConditions.textToBe(this.registrationSuccessMessage, expectedSuccessfulMessage));
-        WebElement registrationSuccessMessage = getWebDriver().findElement(this.registrationSuccessMessage);
+        WebElement registrationSuccessMessage = driver.findElement(this.registrationSuccessMessage);
         return registrationSuccessMessage;
     }
 
     public WebElement getUserExistsErrorMessage() {
         wait.until(ExpectedConditions.attributeToBeNotEmpty(getWebDriver().findElement(userExistsErrorMessage), "innerText"));
-        WebElement actualErrorMessage = getWebDriver().findElement(userExistsErrorMessage);
+        WebElement actualErrorMessage = driver.findElement(userExistsErrorMessage);
         return actualErrorMessage;
     }
 
     public void clickOnRegisterButton() {
-        WebElement registerButton = getWebDriver().findElement(registrationButton);
+        WebElement registerButton = driver.findElement(registrationButton);
         registerButton.click();
     }
 
     public void enterAnswer(String answer) {
-        WebElement answerField = getWebDriver().findElement(this.answer);
+        WebElement answerField = driver.findElement(this.answer);
         answerField.clear();
         answerField.sendKeys(answer);
     }
 
     public void chooseAnySecurityQuestion() {
-        WebElement anySecurityQuestion = getWebDriver().findElement(getSecurityQuestionOption);
+        WebElement anySecurityQuestion = driver.findElement(getSecurityQuestionOption);
         anySecurityQuestion.click();
     }
 
     public void clickOnSecurityQuestion() {
-        WebElement securityQuestion = getWebDriver().findElement(this.securityQuestion);
+        WebElement securityQuestion = driver.findElement(this.securityQuestion);
         securityQuestion.click();
     }
 
     public void enterRepeatPassword(String repeatPassword) {
-        WebElement repeatPasswordField = getWebDriver().findElement(this.repeatPassword);
+        WebElement repeatPasswordField = driver.findElement(this.repeatPassword);
         repeatPasswordField.clear();
         repeatPasswordField.sendKeys(repeatPassword);
     }
 
     public void enterPassword(String password) {
-        WebElement passwordField = getWebDriver().findElement(this.password);
+        WebElement passwordField = driver.findElement(this.password);
         passwordField.clear();
         passwordField.sendKeys(password);
     }
 
     public void enterEmail(String email) {
-        WebElement emailField = getWebDriver().findElement(this.email);
+        WebElement emailField = driver.findElement(this.email);
         emailField.clear();
         emailField.sendKeys(email);
     }
 
     public void clickAnswer() {
-        WebElement answerField = getWebDriver().findElement(answer);
+        WebElement answerField = driver.findElement(answer);
         answerField.click();
         answerField.sendKeys(Keys.TAB);
     }
 
     public void clickSecurityQuestion() {
-        WebElement securityQuestionField = getWebDriver().findElement(securityQuestion);
+        WebElement securityQuestionField = driver.findElement(securityQuestion);
         securityQuestionField.sendKeys(Keys.ESCAPE);
     }
 
     public void clickRepeatPassword() {
-        WebElement repeatPasswordField = getWebDriver().findElement(repeatPassword);
+        WebElement repeatPasswordField = driver.findElement(repeatPassword);
         repeatPasswordField.click();
     }
 
     public void clickPassword() {
-        WebElement passwordField = getWebDriver().findElement(password);
+        WebElement passwordField = driver.findElement(password);
         passwordField.click();
     }
 
     public void clickEmail() {
-        WebElement emailField = getWebDriver().findElement(email);
+        WebElement emailField = driver.findElement(email);
         emailField.click();
     }
 
@@ -140,33 +140,33 @@ public class RegistrationPage extends AbstractPage {
     }
 
     public String getActualEmptyEmailErrorMessage() {
-        String actualEmailErrorMessage = getWebDriver().findElement(emptyEmailError).getText();
+        String actualEmailErrorMessage = driver.findElement(emptyEmailError).getText();
         return actualEmailErrorMessage;
     }
 
     public String getActualEmptyPasswordErrorMessage() {
-        String actualPasswordErrorMessage = getWebDriver().findElement(emptyPasswordError).getText();
+        String actualPasswordErrorMessage = driver.findElement(emptyPasswordError).getText();
         return actualPasswordErrorMessage;
     }
 
     public String getActualEmptyRepeatPasswordErrorMessage() {
-        String actualRepeatPasswordErrorMessage = getWebDriver().findElement(emptyRepeatPasswordError).getText();
+        String actualRepeatPasswordErrorMessage = driver.findElement(emptyRepeatPasswordError).getText();
         return actualRepeatPasswordErrorMessage;
     }
 
     public String getActualEmptySecurityQuestionErrorMessage() {
-        String actualSecurityQuestionErrorMessage = getWebDriver().findElement(emptySecurityQuestionError).getText();
+        String actualSecurityQuestionErrorMessage = driver.findElement(emptySecurityQuestionError).getText();
         return actualSecurityQuestionErrorMessage;
     }
 
    public String getActualEmptyAnswerErrorMessage() {
-        String actualAnswerErrorMessage = getWebDriver().findElement(emptyAnswerError).getText();
+        String actualAnswerErrorMessage = driver.findElement(emptyAnswerError).getText();
         return actualAnswerErrorMessage;
     }
 
     public String getActualPasswordDoNotMatchErrorMessage() {
-        wait.until(ExpectedConditions.visibilityOf(getWebDriver().findElement(passwordDoNotMatchError)));
-        String actualErrorMessage = getWebDriver().findElement(passwordDoNotMatchError).getText();
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(passwordDoNotMatchError)));
+        String actualErrorMessage = driver.findElement(passwordDoNotMatchError).getText();
         return actualErrorMessage;
     }
 }
