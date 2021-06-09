@@ -10,7 +10,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class LoginSuccessTest extends BaseTest {
     Customer customer;

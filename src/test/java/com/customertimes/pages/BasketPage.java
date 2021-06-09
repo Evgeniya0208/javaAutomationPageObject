@@ -37,9 +37,9 @@ public class BasketPage extends AbstractPage{
         List<WebElement> basketProducts = driver.findElements(basketTableRow);
 
         for (WebElement basketProduct : basketProducts) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(basketTableRow));
             wait.until(ExpectedConditions.elementToBeClickable(trashButton));
             driver.findElement(trashButton).click();
+            wait.until(ExpectedConditions.stalenessOf(driver.findElement(trashButton)));
         }
     }
 

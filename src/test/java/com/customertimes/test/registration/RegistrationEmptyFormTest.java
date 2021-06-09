@@ -9,7 +9,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class RegistrationEmptyFormTest extends BaseTest {
 
