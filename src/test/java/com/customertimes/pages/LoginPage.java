@@ -1,6 +1,7 @@
 package com.customertimes.pages;
 
 import com.customertimes.model.Customer;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -29,11 +30,13 @@ public class LoginPage extends AbstractPage {
     }
 
     @Override
+    @Step("Open login page")
     public void openPage() {
         wait = new WebDriverWait(driver, 5);
         driver.get(BASE_PAGE + "/login");
     }
 
+    @Step("Get actual logged in user name")
     public String getActualUserName(String currentEmail) {
         wait.until(ExpectedConditions.textToBe(userAccountButton, expectedUserName));
         WebElement userAccount = driver.findElement(userAccountButton);
@@ -41,55 +44,66 @@ public class LoginPage extends AbstractPage {
         return actualUserName;
     }
 
+    @Step("Click on Account button")
     public void clickOnAccountButton() {
         wait.until(ExpectedConditions.presenceOfElementLocated(navbarAccount));
         driver.findElement(navbarAccount).click();
     }
 
+    @Step("Click on Login button")
     public void clickOnLoginButton() {
         driver.findElement(loginButton).click();
     }
 
+    @Step("Enter email")
     public void enterEmail(String email) {
         WebElement emailField = driver.findElement(emailLocator);
         emailField.clear();
         emailField.sendKeys(email);
     }
 
+    @Step("Enter password")
     public void enterPassword(String password) {
         WebElement passwordField = driver.findElement(passwordFieldLocator);
         passwordField.clear();
         passwordField.sendKeys(password);
     }
 
+    @Step("Login as specified user")
     public void loginAs(Customer customer) {
         enterEmail(customer.getEmail());
         enterPassword(customer.getPassword());
         clickOnLoginButton();
     }
 
+    @Step("Left Password field empty")
     public void leftPasswordFieldEmpty() {
         WebElement passwordField = driver.findElement(passwordFieldLocator);
         passwordField.click();
         passwordField.sendKeys(Keys.TAB);
     }
 
+    @Step("Left Email field empty")
     public void leftEmailFieldEmpty() {
         WebElement emailField = driver.findElement(emailLocator);
         emailField.click();
         emailField.sendKeys(Keys.TAB);
     }
 
+    @Step("Get actual empty password error message")
     public String getActualEmptyPasswordErrorMessage() {
         WebElement passwordError = wait.until(ExpectedConditions.visibilityOf(driver.findElement(emptyPasswordErrorMessage)));
         String actualPasswordErrorMessage = passwordError.getText();
         return actualPasswordErrorMessage;
     }
 
+    @Step("Get actual empty email error message")
     public String getActualEmptyEmailErrorMessage() {
         WebElement emailError = wait.until(ExpectedConditions.visibilityOf(driver.findElement(emptyEmailErrorMessage)));
         return emailError.getText();
     }
+
+    @Step("get actual invalid email error message")
     public String getActualInvalidEmailPasswordError() {
         wait.until(ExpectedConditions.presenceOfElementLocated(invalidEmailPasswordErrorMessage));
         WebElement error = driver.findElement(invalidEmailPasswordErrorMessage);

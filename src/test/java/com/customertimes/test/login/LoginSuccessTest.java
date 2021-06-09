@@ -18,7 +18,6 @@ public class LoginSuccessTest extends BaseTest {
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
         loginPage.openPage();

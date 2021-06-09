@@ -1,6 +1,7 @@
 package com.customertimes.pages;
 
 import com.customertimes.framework.driver.WebdriverRunner;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -37,85 +38,102 @@ public class MainPage extends AbstractPage {
     }
 
     @Override
+    @Step("Open main page")
     public void openPage() {
         driver.get(BASE_PAGE);
     }
 
+    @Step("Close Welcome Banner")
     public void closeWelcomeBanner() {
         wait.until(ExpectedConditions.presenceOfElementLocated(closeWelcomeBannerButton));
         WebElement dismissButton = driver.findElement(closeWelcomeBannerButton);
         dismissButton.click();
     }
 
+    @Step("Close cookies message")
     public void dismissCookie() {
         WebElement dismissCookie = driver.findElement(dismissCookieButton);
         dismissCookie.click();
     }
 
+    @Step("Check counter number on the basket icon")
     public String getBasketCounter() {
         wait.until(ExpectedConditions.presenceOfElementLocated(basketCounter));
         String basketCounter = driver.findElement(this.basketCounter).getAttribute("innerText");
         return basketCounter;
     }
 
+    @Step("Get actual product picture source from product card pop-up")
     public String getActualProductPictureSource() {
         String actualProductPictureSource = driver.findElement(productCardPicture).getAttribute("src");
         return actualProductPictureSource;
     }
 
+    @Step("Get actual product price from product card pop-up")
     public String getActualProductPrice() {
         return driver.findElement(productCardPrice).getText();
     }
 
+    @Step("Get actual product name from product card pop-up")
     public String getActualProductName() {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(productCardName)));
         String actualProductName = driver.findElement(productCardName).getText();
         return actualProductName;
     }
 
+    @Step("Click on product in product list")
     public void clickOnProduct() {
+        wait.until(ExpectedConditions.elementToBeClickable(productInList));
         WebElement desiredProduct = driver.findElement(productInList);
         desiredProduct.click();
     }
 
+    @Step("Add product to the basket")
     public void addProductToBasket() {
         wait.until(ExpectedConditions.presenceOfElementLocated(addToBasketButton));
         WebElement addToBasket = driver.findElement(addToBasketButton);
         addToBasket.click();
     }
 
+    @Step("Get success message after adding product to the basket")
     public WebElement getAddToBasketSuccessMessage() {
         wait.until(ExpectedConditions.textToBe(addToBasketSuccessMessage, productAddedToBasketMessage));
         WebElement actualProductMessage = driver.findElement(addToBasketSuccessMessage);
         return actualProductMessage;
     }
 
+    @Step("Click on basket icon")
     public void clickOnBasket() {
         WebElement userBasket = driver.findElement(basketIcon);
         userBasket.click();
     }
 
+    @Step("Scroll to page down")
     public void goPageDown() {
         wait.until(ExpectedConditions.presenceOfElementLocated(productInList));
         js.executeScript(scrollPageDown);
     }
 
+    @Step("Go to the next page")
     public void goNextPage() {
         WebElement nextPage = driver.findElement(nextPageButton);
         nextPage.click();
     }
 
+    @Step("Scroll to any sold out product")
     public void goSoldOutProduct() {
         WebElement soldOutProduct = driver.findElement(this.soldOutProduct);
         js.executeScript(scrollToElement, soldOutProduct);
     }
 
+    @Step("Get error message after trying to add sold out product to the basket")
     public String getSoldOutErrorMessage() {
         wait.until(ExpectedConditions.textToBe(errorToastMessage, expectedErrorMessage));
         String errorMessage = driver.findElement(errorToastMessage).getText();
         return errorMessage;
     }
 
+    @Step("Add sold out product to the basket")
     public void addSoldOutToBasket() {
         WebElement addToBasketAnySoldOutProduct = driver.findElement(addSoldOutToBasket);
         addToBasketAnySoldOutProduct.click();

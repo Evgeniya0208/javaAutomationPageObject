@@ -1,15 +1,29 @@
 package com.customertimes.test.login;
 
 import com.customertimes.framework.driver.WebdriverRunner;
+import com.customertimes.framework.listeners.TestListener;
 import com.customertimes.pages.LoginPage;
 import com.customertimes.pages.MainPage;
 import com.customertimes.test.BaseTest;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.io.File;
+
+import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
+
+@Epic("Log in")
+@Story("Empty Login form validation")
 
 public class LoginEmptyFormTest extends BaseTest {
 
@@ -28,8 +42,12 @@ public class LoginEmptyFormTest extends BaseTest {
     }
 
     @Test
+    @Feature("login")
+    @Description("User can login to app")
     public void checkLoginEmptyForm() {
         loginPage.leftEmailFieldEmpty();
+
+        File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 
         loginPage.leftPasswordFieldEmpty();
 

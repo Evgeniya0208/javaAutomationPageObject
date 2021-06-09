@@ -27,7 +27,7 @@ public class WebdriverRunner {
                 case "firefox": {
                     if (TestConfig.CONFIG.remote()) {
                         try {
-                            driver.set(new RemoteWebDriver(new URL(TestConfig.CONFIG.seleniumServerUrl()), DesiredCapabilities.chrome()));
+                            driver.set(new RemoteWebDriver(new URL(TestConfig.CONFIG.seleniumServerUrl()), DesiredCapabilities.firefox()));
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         }
@@ -48,7 +48,15 @@ public class WebdriverRunner {
                     break;
                 }
                 case  "safari": {
+                    if (TestConfig.CONFIG.remote()) {
+                        try {
+                            driver.set(new RemoteWebDriver(new URL(TestConfig.CONFIG.seleniumServerUrl()), DesiredCapabilities.safari()));
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
                     driver.set(new SafariDriver());
+                    }
                     break;
                 }
                 default: {

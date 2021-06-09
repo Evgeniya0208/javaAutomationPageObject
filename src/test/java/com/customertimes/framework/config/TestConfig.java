@@ -15,7 +15,6 @@ public interface TestConfig  extends Config {
 
     boolean remote();
 
-
     @Key("selenium.server-url")
     String seleniumServerUrl();
 
