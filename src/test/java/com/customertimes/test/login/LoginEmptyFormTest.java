@@ -5,10 +5,7 @@ import com.customertimes.framework.listeners.TestListener;
 import com.customertimes.pages.LoginPage;
 import com.customertimes.pages.MainPage;
 import com.customertimes.test.BaseTest;
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -44,6 +41,7 @@ public class LoginEmptyFormTest extends BaseTest {
     @Test
     @Feature("login")
     @Description("User can login to app")
+    @TmsLink("ELEM-1220")
     public void checkLoginEmptyForm() {
         loginPage.leftEmailFieldEmpty();
 

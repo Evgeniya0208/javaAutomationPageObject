@@ -17,7 +17,7 @@ public class RegistrationSuccessTest extends BaseTest {
     Customer customer;
     RegistrationPage registrationPage;
     MainPage mainPage;
-    private String expectedSuccessfulMessage = "Registration completed successfully. You can now log in." + "6456546456";
+    private String expectedSuccessfulMessage = "Registration completed successfully. You can now log in.";
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException { ;
