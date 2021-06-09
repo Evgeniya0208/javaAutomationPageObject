@@ -13,7 +13,6 @@ import org.testng.asserts.SoftAssert;
 
 public class LoginEmptyFormTest extends BaseTest {
 
-    WebDriverWait wait;
     private String emptyEmailFieldMessage = "Please provide an email address.";
     private String emptyPasswordFieldMessage = "Please provide a password.";
     LoginPage loginPage;
@@ -21,7 +20,6 @@ public class LoginEmptyFormTest extends BaseTest {
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(driver, 5);
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
 

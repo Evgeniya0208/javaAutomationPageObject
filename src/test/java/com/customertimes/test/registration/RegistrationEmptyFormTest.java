@@ -13,7 +13,6 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class RegistrationEmptyFormTest extends BaseTest {
 
-    WebDriverWait wait;
     RegistrationPage registrationPage;
     MainPage mainPage;
     private String emptyEmailMessage = "Please provide an email address.";
@@ -25,7 +24,6 @@ public class RegistrationEmptyFormTest extends BaseTest {
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(driver, 5);
         registrationPage = new RegistrationPage(driver);
         mainPage = new MainPage(driver);
         registrationPage.openPage();

@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class LoginSuccessTest extends BaseTest {
-    WebDriverWait wait;
     Customer customer;
     LoginPage loginPage;
     MainPage mainPage;

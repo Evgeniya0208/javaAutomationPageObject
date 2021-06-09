@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class RegisterNotMatchedPasswordTest extends BaseTest {
-    WebDriverWait wait;
     Customer customer;
     RegistrationPage registrationPage;
     MainPage mainPage;
@@ -22,7 +21,6 @@ public class RegisterNotMatchedPasswordTest extends BaseTest {
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(driver, 5);
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").withRepeatPassword("12345").build();
         registrationPage = new RegistrationPage(driver);
         mainPage = new MainPage(driver);

@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class RegisterExistingEmailTest extends BaseTest {
-    WebDriverWait wait;
     private String expectedErrorMessage = "Email must be unique";
     Customer customer;
     RegistrationPage registrationPage;
@@ -24,7 +23,6 @@ public class RegisterExistingEmailTest extends BaseTest {
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(driver, 5);
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").withRepeatPassword("123456").withAnswer("Cat").build();
         registrationPage = new RegistrationPage(driver);
         mainPage = new MainPage(driver);

@@ -10,7 +10,7 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 public class MainPage extends AbstractPage {
 
     private WebDriverWait wait;
-    JavascriptExecutor js = (JavascriptExecutor)WebdriverRunner.getWebDriver();
+    JavascriptExecutor js;
     private String productAddedToBasketMessage = "Placed Apple Juice (1000ml) into basket.";
     private By productCardPicture = By.cssSelector(".cdk-overlay-pane .img-thumbnail");
     private By productCardPrice = By.cssSelector(".cdk-overlay-pane .item-price");
@@ -33,6 +33,7 @@ public class MainPage extends AbstractPage {
     public MainPage(WebDriver driver) {
         super(driver);
         wait = new WebDriverWait(driver, TIME_OUT);
+        js = (JavascriptExecutor)driver;
     }
 
     @Override

@@ -8,21 +8,10 @@ import org.testng.asserts.SoftAssert;
 public class MyFirstTest extends BaseTest {
 
 
-    @AfterClass
-    public void tearDown() {
-        WebdriverRunner.closeWebDriver();
-    }
-
-
     @Test
     public void checkSiteTitle()
     {
-        //WebDriverManager.firefoxdriver().setup();
-        //ChromeOptions chromeOptions = new ChromeOptions();
-        //chromeOptions.addArguments("--start-fullscreen");
-        //chromeOptions.addExtensions()
-        //WebDriver driver = new FirefoxDriver();
-        WebdriverRunner.getWebDriver().get("https://www.google.com/");
+        driver.get("https://www.google.com/");
 
         try {
             Thread.sleep(5_000);

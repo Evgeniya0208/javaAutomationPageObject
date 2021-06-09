@@ -17,7 +17,6 @@ import org.testng.annotations.Test;
 import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class ProductToBasketTest extends BaseTest {
-    WebDriverWait wait;
     LoginPage loginPage;
     Customer customer;
     Product product;
@@ -28,7 +27,6 @@ public class ProductToBasketTest extends BaseTest {
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(driver, 10);
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("123456").build();
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);

@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class LoginInvalidPasswordTest extends BaseTest {
-    WebDriverWait wait;
     Customer customer;
     LoginPage loginPage;
     MainPage mainPage;
@@ -23,7 +22,6 @@ public class LoginInvalidPasswordTest extends BaseTest {
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(driver, 5);
         customer = Customer.newBuilder().withName("evgeniya1@gmail.com").withPassword("1234567").build();
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);

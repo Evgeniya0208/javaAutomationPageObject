@@ -10,14 +10,10 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class FacebookTitleTest extends BaseTest {
 
-    @AfterClass
-    public void tearDown() {
-        WebdriverRunner.closeWebDriver();
-    }
 
     @Test
     public void checkFacebookTitle() {
-        getWebDriver().get("https://www.facebook.com/");
+        driver.get("https://www.facebook.com/");
 
         String expectedTitle = "Facebook — увійдіть або зареєструйтеся";
         String actualTitle = driver.getTitle();

@@ -10,16 +10,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class ProductInformationTest extends BaseTest {
-    WebDriverWait wait;
     Product product;
     MainPage mainPage;
 
     @BeforeClass
     public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(driver, 5);
         mainPage = new MainPage(driver);
         mainPage.openPage();
         mainPage.closeWelcomeBanner();

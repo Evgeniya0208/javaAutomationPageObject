@@ -12,18 +12,15 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class RegistrationSuccessTest extends BaseTest {
-    WebDriverWait wait;
     Customer customer;
     RegistrationPage registrationPage;
     MainPage mainPage;
     private String expectedSuccessfulMessage = "Registration completed successfully. You can now log in.";
 
     @BeforeClass
-    public void openPageBeforeClass() throws InterruptedException {
-        wait = new WebDriverWait(driver, 5);
+    public void openPageBeforeClass() throws InterruptedException { ;
         customer = Customer.newBuilder().withName("evgeniya" + System.currentTimeMillis() + "@gmail.com").withPassword("123456").withRepeatPassword("123456").withAnswer("Cat").build();
         registrationPage = new RegistrationPage(driver);
         mainPage = new MainPage(driver);
@@ -35,7 +32,6 @@ public class RegistrationSuccessTest extends BaseTest {
     public void checkUserCanRegister() {
         registrationPage.registerAsCustomer(customer);
 
-        WebElement registrationSuccessMessage = registrationPage.getRegistrationSuccessMessage();
-        Assert.assertEquals(registrationSuccessMessage.getText(), expectedSuccessfulMessage, "Message is not expected");
+        Assert.assertEquals(registrationPage.getRegistrationSuccessMessage(), expectedSuccessfulMessage, "Message is not expected");
     }
 }

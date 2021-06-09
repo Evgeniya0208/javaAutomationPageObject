@@ -50,9 +50,10 @@ public class RegistrationPage extends AbstractPage {
         clickOnRegisterButton();
     }
 
-    public WebElement getRegistrationSuccessMessage() {
+    public String getRegistrationSuccessMessage() {
         wait.until(ExpectedConditions.textToBe(this.registrationSuccessMessage, expectedSuccessfulMessage));
-        WebElement registrationSuccessMessage = driver.findElement(this.registrationSuccessMessage);
+
+        String registrationSuccessMessage = driver.findElement(this.registrationSuccessMessage).getText();
         return registrationSuccessMessage;
     }
 
