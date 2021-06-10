@@ -7,7 +7,6 @@ import org.openqa.selenium.support.events.WebDriverEventListener;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class EventListener implements WebDriverEventListener {
 
