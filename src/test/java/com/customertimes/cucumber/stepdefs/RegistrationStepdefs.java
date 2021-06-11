@@ -3,6 +3,7 @@ package com.customertimes.cucumber.stepdefs;
 import com.customertimes.cucumber.page.MainPageCucumber;
 import com.customertimes.cucumber.page.RegistrationPageCucumber;
 import com.customertimes.cucumber.runner.CucumberBaseTest;
+import com.customertimes.testdata.DataStore;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,17 +15,21 @@ import static com.customertimes.framework.driver.WebdriverRunner.getWebDriver;
 
 public class RegistrationStepdefs {
     private RegistrationPageCucumber registrationPageCucumber = new RegistrationPageCucumber(getWebDriver());
-    private MainPageCucumber mainPageCucumber = new MainPageCucumber(getWebDriver());
+    private DataStore dataStore = new DataStore();
 
 
     @Given("User goes to registration page")
     public void navigateToRegistrationPage() {
         registrationPageCucumber.openPage();
-        //mainPageCucumber.closeWelcomeBanner();
     }
 
-    @When("User enters email {string}, password {string}, repeat password {string}, chooses security question and enter answer {string}")
-    public void userFillsRegistrationForm(String email, String password, String repeatPassword, String answer) {
+    @When("User enters email, password, repeat password, chooses security question and enter answer")
+
+    public void userFillsRegistrationForm() {
+        String email  =  dataStore.getUsername();
+        String password = dataStore.getPassword();
+        String repeatPassword = dataStore.getRepeatPassword();
+        String answer = dataStore.getAnswer();
         registrationPageCucumber.enterEmail(email);
         registrationPageCucumber.enterPassword(password);
         registrationPageCucumber.enterRepeatPassword(repeatPassword);
