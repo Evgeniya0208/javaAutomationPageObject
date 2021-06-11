@@ -27,5 +27,5 @@ public class DataStore {
 
     public String getEmptySecurityQuestionMessage() { return emptySecurityQuestionMessage; }
 
-    public String getEmptyAnswerMessage() { return emptyAnswerMessage; }
+   // public String getEmptyAnswerMessage() { return emptyAnswerMessage; }
 }
