@@ -6,8 +6,10 @@ Feature: Registration
     And User clicks on Register button
     Then User should be registered in application with success message <successMessage>
     Examples:
-      | email             | password | repeatPassword | answer | successMessage |
-      | "eva09@gmail.com" | "123456" | "123456"       | "Cat"  | "Registration completed successfully. You can now log in." |
+      | email               | password | repeatPassword | answer | successMessage                                             |
+      | "eva00011@gmail.com"| "123456" | "123456"       | "Cat"  | "Registration completed successfully. You can now log in." |
+
+
 
 
 
